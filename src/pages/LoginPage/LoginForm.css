@@ -1,0 +1,19 @@
+.login-form {
+  max-width: 300px;
+}
+.login-form-forgot {
+  float: left;
+}
+.login-form-register {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+}
+.login-page {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

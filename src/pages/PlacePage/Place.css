@@ -1,0 +1,18 @@
+.place-form-container {
+  background: #ffffff;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.place-list-header {
+  background: #ffffff;
+  text-align: center;
+  padding: 1rem 15%;
+}
+
+.place-list-table {
+  padding: 1rem 15%;
+  text-align: center;
+  background: #ffffff;
+}
