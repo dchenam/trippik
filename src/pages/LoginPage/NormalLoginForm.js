@@ -89,8 +89,7 @@ const mapStateToProps = state => {
     });
   }
   return {
-    errors,
-    isAuthenticated: state.auth.isAuthenticated
+    errors
   };
 };
 

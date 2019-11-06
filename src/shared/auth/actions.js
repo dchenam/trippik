@@ -22,7 +22,6 @@ export const loadUser = () => async (dispatch, getState) => {
       dispatch({ type: USER_LOADED, user: res.data });
     }
   } catch (error) {
-    console.log("error");
     dispatch({ type: AUTHENTICATION_ERROR, error: error });
   }
 };
@@ -55,8 +54,8 @@ export const logoutUser = () => async (dispatch, getState) => {
     Authorization: `Token ${token}`
   };
   try {
-    const res = await Axios.post("/api/accounts/logout/", { headers: headers });
-    dispatch({ type: LOGOUT_SUCCESS, data: res.data });
+    await Axios.post("/api/accounts/logout/", {}, { headers: headers });
+    dispatch({ type: LOGOUT_SUCCESS });
   } catch (error) {
     console.error(error);
   }

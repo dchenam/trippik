@@ -12,7 +12,7 @@ export default class PlaceNew extends Component {
       <div className="place-form-container">
         <h5 style={{ alignSelf: "center" }}>Let's add a new place! </h5>
         <PlaceForm
-          onSurveySubmit={() => this.setState({ showPageReview: true })}
+          onFormSubmit={() => this.setState({ showPageReview: true })}
         />
       </div>
     );

@@ -8,13 +8,13 @@ import "./Place.css";
 
 class PlaceList extends Component {
   componentDidMount() {
-    const noPlaces = !this.props.places || this.props.places.data.length === 0;
+    const { results } = this.props.places.data;
+    const noPlaces = results.length === 0;
     if (noPlaces) this.props.fetchPlaces();
   }
 
   render() {
     const { data, error, isLoading } = this.props.places;
-
     if (error) {
       return <p>{error.message}</p>;
     }
@@ -47,9 +47,9 @@ class PlaceList extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  places: state.places,
-  auth: state.auth
+const mapStateToProps = ({ places, auth }) => ({
+  places,
+  auth
 });
 
 export default connect(

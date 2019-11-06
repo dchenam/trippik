@@ -1,17 +1,52 @@
-import { FETCH_PLACES_SUCCESS, FETCH_PLACES_FAILURE } from "./actions";
+import {
+  FETCH_PLACES_SUCCESS,
+  FETCH_PLACES_FAILURE,
+  FETCH_PLACES_REQUEST,
+  UNAUTHORIZED_ERROR,
+  CREATE_PLACE_REQUEST,
+  CREATE_PLACE_SUCCESS,
+  DELETE_PLACE_SUCCESS
+} from "./actions";
 
 const initialState = {
-  data: [],
+  data: { results: [] },
   error: null,
   isLoading: true
 };
 
 export default function placesReducer(state = initialState, action) {
   switch (action.type) {
+    case FETCH_PLACES_REQUEST:
+      return { ...state, isLoading: true };
     case FETCH_PLACES_SUCCESS:
-      return { data: action.data, isLoading: false };
+      return { data: action.payload, error: null, isLoading: false };
     case FETCH_PLACES_FAILURE:
-      return { error: action.error, isLoading: false };
+      return { ...state, error: action.error, isLoading: false };
+    case CREATE_PLACE_REQUEST:
+      return { ...state, isLoading: true };
+    case CREATE_PLACE_SUCCESS:
+      return {
+        data: {
+          ...state.data,
+          results: [...state.data.results, action.payload]
+        },
+        error: null,
+        isLoading: false
+      };
+    case DELETE_PLACE_SUCCESS:
+      const filtered_data = state.data.results.filter(
+        item => item.id !== Number(action.payload)
+      );
+      return {
+        data: {
+          ...state.data,
+          results: filtered_data
+        },
+        error: null,
+        isLoading: false
+      };
+    case UNAUTHORIZED_ERROR:
+      return { ...state, error: action.error };
     default:
       return state;
   }

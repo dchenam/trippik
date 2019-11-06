@@ -8,7 +8,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import PlaceDetail from "./pages/PlacePage/PlaceDetail";
 import PlaceList from "./pages/PlacePage/PlaceList";
 import PlaceNew from "./pages/PlacePage/PlaceNew";
-import BasicLayout from "./components/BasicLayout";
+import BasicLayout from "./components/Layout/BasicLayout";
 import NormalLoginForm from "./pages/LoginPage/NormalLoginForm";
 
 class App extends Component {

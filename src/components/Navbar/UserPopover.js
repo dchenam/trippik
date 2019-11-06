@@ -5,11 +5,7 @@ import { logoutUser } from "../../shared";
 
 class UserPopover extends Component {
   render() {
-    return (
-      <div>
-        <Button onClick={() => this.props.logoutUser()}>Logout</Button>
-      </div>
-    );
+    return <Button onClick={() => this.props.logoutUser()}>Logout</Button>;
   }
 }
 
