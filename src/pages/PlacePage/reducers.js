@@ -2,10 +2,11 @@ import {
   FETCH_PLACES_SUCCESS,
   FETCH_PLACES_FAILURE,
   FETCH_PLACES_REQUEST,
-  UNAUTHORIZED_ERROR,
   CREATE_PLACE_REQUEST,
   CREATE_PLACE_SUCCESS,
-  DELETE_PLACE_SUCCESS
+  DELETE_PLACE_SUCCESS,
+  CREATE_PLACE_FAILURE,
+  DELETE_PLACE_FAILURE
 } from "./actions";
 
 const initialState = {
@@ -33,9 +34,11 @@ export default function placesReducer(state = initialState, action) {
         error: null,
         isLoading: false
       };
+    case CREATE_PLACE_FAILURE:
+      return { ...state, error: action.error, isLoading: false };
     case DELETE_PLACE_SUCCESS:
       const filtered_data = state.data.results.filter(
-        item => item.id !== Number(action.payload)
+        item => item.place_id !== Number(action.payload)
       );
       return {
         data: {
@@ -45,8 +48,8 @@ export default function placesReducer(state = initialState, action) {
         error: null,
         isLoading: false
       };
-    case UNAUTHORIZED_ERROR:
-      return { ...state, error: action.error };
+    case DELETE_PLACE_FAILURE:
+      return { ...state, error: action.error, isLoading: false };
     default:
       return state;
   }

@@ -7,18 +7,16 @@ import UserPopover from "./UserPopover";
 class Navbar extends Component {
   renderContent() {
     switch (this.props.auth.isAuthenticated) {
-      case null:
-        return;
-      case false:
+      case true:
         return (
           <Menu.Item style={{ float: "right" }}>
-            <Link to="/account/login">Login</Link>
+            <UserPopover />
           </Menu.Item>
         );
       default:
         return (
           <Menu.Item style={{ float: "right" }}>
-            <UserPopover />
+            <Link to="/account/login">Login</Link>
           </Menu.Item>
         );
     }
@@ -35,6 +33,9 @@ class Navbar extends Component {
         </Menu.Item>
         <Menu.Item>
           <Link to="/places/new">Add a Place</Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/trips">My Trips</Link>
         </Menu.Item>
         {this.renderContent()}
       </Menu>

@@ -1,4 +1,4 @@
-import Axios from "axios";
+import apiAction from "../../shared";
 
 export const FETCH_PLACES_REQUEST = "fetch_request";
 export const FETCH_PLACES_SUCCESS = "fetch_success";
@@ -9,51 +9,44 @@ export const CREATE_PLACE_SUCCESS = "create_success";
 export const CREATE_PLACE_FAILURE = "create_failure";
 
 export const DELETE_PLACE_SUCCESS = "delete_success";
-export const UNAUTHORIZED_ERROR = "unauthorized error";
+export const DELETE_PLACE_FAILURE = "delete_failure";
 
-export const fetchPlaces = () => async dispatch => {
-  try {
-    const res = await Axios.get("/api/places/");
-    dispatch({ type: FETCH_PLACES_SUCCESS, payload: res.data });
-  } catch (error) {
-    dispatch({ type: FETCH_PLACES_FAILURE, error: error });
-  }
-};
-
-export const createPlace = (values, history) => async dispatch => {
-  try {
-    const token = localStorage.getItem("key");
-    let headers = {
-      "Content-Type": "application/json",
-      Authorization: `Token ${token}`
-    };
-    const res = await Axios.post("/api/places/", JSON.stringify(values), {
-      headers: headers
-    });
-    if (res.status === 201) {
-      history.push("/places");
-      dispatch({ type: CREATE_PLACE_SUCCESS, payload: res.data });
+export const fetchPlaces = () =>
+  apiAction({
+    url: "/api/places/",
+    onSuccess: (data, dispatch) => {
+      dispatch({ type: FETCH_PLACES_SUCCESS, payload: data });
+    },
+    onFailure: (error, dispatch) => {
+      dispatch({ type: FETCH_PLACES_FAILURE, error: error });
     }
-  } catch (error) {
-    console.log(error);
-  }
-};
+  });
 
-export const deletePlace = (id, history) => async dispatch => {
-  try {
-    const token = localStorage.getItem("key");
-    let headers = {
-      "Content-Type": "application/json",
-      Authorization: `Token ${token}`
-    };
-    const res = await Axios.delete(`/api/places/${id}`, {
-      headers: headers
-    });
-    if (res.status === 204) {
+export const createPlace = (values, history) =>
+  apiAction({
+    url: "/api/places/",
+    method: "POST",
+    data: values,
+    accessToken: localStorage.getItem("key"),
+    onSuccess: (data, dispatch) => {
+      dispatch({ type: CREATE_PLACE_SUCCESS, payload: data });
       history.push("/places");
+    },
+    onFailure: (error, dispatch) => {
+      dispatch({ type: CREATE_PLACE_FAILURE, error: error });
+    }
+  });
+
+export const deletePlace = (id, history) =>
+  apiAction({
+    url: `/api/places/${id}`,
+    method: "DELETE",
+    accessToken: localStorage.getItem("key"),
+    onSuccess: (_data, dispatch) => {
       dispatch({ type: DELETE_PLACE_SUCCESS, payload: id });
+      history.push("/places");
+    },
+    onFailure: (error, dispatch) => {
+      dispatch({ type: DELETE_PLACE_FAILURE, error: error });
     }
-  } catch (error) {
-    dispatch({ type: UNAUTHORIZED_ERROR, error: error });
-  }
-};
+  });

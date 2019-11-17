@@ -1,7 +1,7 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { useParams, withRouter } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Row, Col, Button } from "antd";
 import BusinessInfo from "../../components/Places/BusinessInfo";
 import { deletePlace } from "./actions";
@@ -14,7 +14,6 @@ function PlaceDetail(props) {
     isFetching: false,
     error: null
   });
-
   useEffect(() => {
     const fetchPlace = async () => {
       try {
@@ -58,4 +57,4 @@ const mapStateToProps = ({ places: { error } }) => {
 export default connect(
   mapStateToProps,
   { deletePlace }
-)(withRouter(PlaceDetail));
+)(PlaceDetail);

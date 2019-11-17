@@ -9,8 +9,8 @@ import {
 
 const initialState = {
   key: localStorage.getItem("key"),
-  isAuthenticated: null,
-  isLoading: null,
+  isAuthenticated: false,
+  isLoading: true,
   user: null,
   errors: {}
 };
@@ -27,10 +27,10 @@ export default (state = initialState, action) => {
         user: action.user
       };
     case LOGIN_SUCCESS:
-      localStorage.setItem("key", action.data.key);
+      localStorage.setItem("key", action.payload.key);
       return {
         ...state,
-        ...action.data,
+        ...action.payload,
         isAuthenticated: true,
         isLoading: false,
         errors: null
@@ -41,7 +41,7 @@ export default (state = initialState, action) => {
       localStorage.removeItem("key");
       return {
         ...state,
-        errors: action.data,
+        errors: action.error,
         key: null,
         user: null,
         isAuthenticated: false,

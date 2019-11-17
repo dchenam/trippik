@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Form, Icon, Input, Button } from "antd";
+import { Redirect } from "react-router-dom";
+import { Form, Icon, Input, Button, Spin } from "antd";
 import "./LoginForm.css";
 import { loginUser } from "../../shared/auth/actions";
 
@@ -9,23 +10,36 @@ class NormalLoginForm extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        const { history, location } = this.props;
         const { username, password } = values;
-        this.props.loginUser(username, password);
+        this.props.loginUser(username, password, history, location);
       }
     });
   };
 
   renderErrors() {
-    if (this.props.errors.length === 0) {
-      return;
-    } else {
-      const { non_field_errors } = this.props.errors[2].message.data;
-      return <p style={{ color: "red" }}>{non_field_errors[0]}</p>;
-    }
+    if (typeof this.props.errors === "undefined") return;
+    const { non_field_errors } = this.props.errors;
+    non_field_errors.map(message => {
+      return <p style={{ color: "red" }}>{message}</p>;
+    });
   }
 
-  render() {
+  renderContent() {
+    const { auth, location } = this.props;
+
+    if (auth.isLoading) {
+      return <Spin />;
+    }
+
+    if (auth.isAuthenticated) {
+      const { state = {} } = location;
+      const { prevLocation } = state;
+      return <Redirect to={prevLocation || "/"} />;
+    }
+
     const { getFieldDecorator } = this.props.form;
+
     return (
       <div className="login-page">
         <h1>Your Account</h1>
@@ -74,26 +88,24 @@ class NormalLoginForm extends Component {
               Sign Up!
             </a>
           </Form.Item>
-          {this.renderErrors()}
+          {/* {this.renderErrors()} */}
         </Form>
       </div>
     );
   }
+  render() {
+    return <div>{this.renderContent()}</div>;
+  }
 }
 
-const mapStateToProps = state => {
-  let errors = [];
-  if (state.auth.errors) {
-    errors = Object.keys(state.auth.errors).map(field => {
-      return { field, message: state.auth.errors[field] };
-    });
-  }
+const mapStateToProps = ({ auth }) => {
+  const errors = auth.errors ? auth.errors.data : null;
   return {
+    auth,
     errors
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { loginUser }
-)(Form.create({ name: "normal_login" })(NormalLoginForm));
+export default connect(mapStateToProps, { loginUser })(
+  Form.create({ name: "normal_login" })(NormalLoginForm)
+);

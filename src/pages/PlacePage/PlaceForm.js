@@ -17,10 +17,11 @@ const formItemLayout = {
 
 class PlaceForm extends Component {
   handleSubmit = e => {
+    const { form, createPlace, history } = this.props;
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    form.validateFields((err, values) => {
       if (!err) {
-        this.props.createPlace(values, this.props.history);
+        createPlace(values, history);
       }
     });
   };
@@ -86,7 +87,6 @@ class PlaceForm extends Component {
   }
 }
 
-export default connect(
-  null,
-  { createPlace }
-)(Form.create({ name: "place-form" })(withRouter(PlaceForm)));
+export default connect(null, { createPlace })(
+  Form.create({ name: "place-form" })(withRouter(PlaceForm))
+);

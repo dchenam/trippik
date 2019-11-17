@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
 import { Spin, Button, PageHeader } from "antd";
 import PlaceTable from "../../components/Places/PlaceTable";
 import { fetchPlaces } from "./actions";
+import { addEvent } from "../TripPage/actions";
 import "./Place.css";
 
 class PlaceList extends Component {
@@ -14,7 +14,10 @@ class PlaceList extends Component {
   }
 
   render() {
-    const { data, error, isLoading } = this.props.places;
+    const {
+      places: { data, error, isLoading },
+      history
+    } = this.props;
     if (error) {
       return <p>{error.message}</p>;
     }
@@ -26,7 +29,7 @@ class PlaceList extends Component {
         <div className="place-list-header">
           <PageHeader
             ghost={false}
-            onback={() => window.history.back()}
+            onback={() => history.back()}
             title="Place List"
             subTitle="collection of places"
           ></PageHeader>
@@ -34,11 +37,15 @@ class PlaceList extends Component {
         </div>
 
         <div className="place-list-table">
-          <PlaceTable data={data.results} className="place-table" />
-          <Button
-            type="primary"
-            onClick={() => this.props.history.push("/places/new")}
-          >
+          <PlaceTable
+            data={data.results}
+            className="place-table"
+            onAddEvent={item => {
+              const event = { place: item.place_id, time: null };
+              this.props.addEvent(event, history);
+            }}
+          />
+          <Button type="primary" onClick={() => history.push("/places/new")}>
             New Place
           </Button>
         </div>
@@ -52,7 +59,4 @@ const mapStateToProps = ({ places, auth }) => ({
   auth
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchPlaces }
-)(PlaceList);
+export default connect(mapStateToProps, { fetchPlaces, addEvent })(PlaceList);
