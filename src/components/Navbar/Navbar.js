@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Menu } from "antd";
 import { connect } from "react-redux";
 import UserPopover from "./UserPopover";
@@ -15,7 +15,7 @@ class Navbar extends Component {
         );
       default:
         return (
-          <Menu.Item style={{ float: "right" }}>
+          <Menu.Item key="/account/login" style={{ float: "right" }}>
             <Link to="/account/login">Login</Link>
           </Menu.Item>
         );
@@ -24,17 +24,22 @@ class Navbar extends Component {
 
   render() {
     return (
-      <Menu theme="dark" mode="horizontal" style={{ lineHeight: "64px" }}>
-        <Menu.Item>
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        selectedKeys={[this.props.location.pathname]}
+        style={{ lineHeight: "64px" }}
+      >
+        <Menu.Item key="/">
           <Link to="/">Trip Builder</Link>
         </Menu.Item>
-        <Menu.Item>
+        <Menu.Item key="/places">
           <Link to="/places">Browse Places</Link>
         </Menu.Item>
-        <Menu.Item>
+        <Menu.Item key="/places/new">
           <Link to="/places/new">Add a Place</Link>
         </Menu.Item>
-        <Menu.Item>
+        <Menu.Item key="/trips">
           <Link to="/trips">My Trips</Link>
         </Menu.Item>
         {this.renderContent()}
@@ -47,4 +52,4 @@ const mapStatetoProps = ({ auth }) => {
   return { auth };
 };
 
-export default connect(mapStatetoProps)(Navbar);
+export default connect(mapStatetoProps)(withRouter(Navbar));

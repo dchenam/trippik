@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { push } from "connected-react-router";
 import { Button, Form, Input } from "antd";
 import { createPlace } from "./actions";
 
@@ -77,7 +77,7 @@ class PlaceForm extends Component {
           </Button>
           <Button
             size="large"
-            onClick={() => this.props.history.push("/places")}
+            onClick={() => this.props.push("/places")}
           >
             Cancel
           </Button>
@@ -87,6 +87,6 @@ class PlaceForm extends Component {
   }
 }
 
-export default connect(null, { createPlace })(
-  Form.create({ name: "place-form" })(withRouter(PlaceForm))
+export default connect(null, { createPlace, push })(
+  Form.create({ name: "place-form" })(PlaceForm)
 );

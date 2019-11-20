@@ -2,4 +2,27 @@
   background: #ffffff;
   text-align: center;
   padding: 3rem 15%;
+  min-height: 80rem;
+}
+
+.trip-form-options {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 1rem 0;
+}
+
+.trip-list-container {
+  background: #ffffff;
+  padding: 0rem 15% 2rem;
+  min-height: 80rem;
+}
+
+.trip-view-container {
+  padding: 2rem 0;
+}
+
+.trip-list-options {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 1rem 0;
 }

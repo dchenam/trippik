@@ -2,7 +2,7 @@ import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Row, Col, Button } from "antd";
+import { Row, Col, Button, Divider } from "antd";
 import BusinessInfo from "../../components/Places/BusinessInfo";
 import { deletePlace } from "./actions";
 
@@ -31,22 +31,25 @@ function PlaceDetail(props) {
   } else if (props.error) {
     return <div>{props.error.message}</div>;
   } else {
+    console.log(data);
     return (
       <div>
+        <Row>
+          <Col span={16} className="place-general-info">
+            <BusinessInfo place={data.place}/>
+          </Col>
+          <Col span={8} className="place-location-info">
+            <h4>Business Hours</h4>
+            <Divider />
+            {/* <p>{data.place}</p> */}
+          </Col>
+        </Row>
         <Button
           type="danger"
           onClick={() => props.deletePlace(id, props.history)}
         >
           Delete
         </Button>
-        <Row>
-          <Col span={16} style={{ padding: "2em" }}>
-            <BusinessInfo place={data.place}></BusinessInfo>
-          </Col>
-          <Col span={8} style={{ background: "green" }}>
-            <h1>Business Hours</h1>
-          </Col>
-        </Row>
       </div>
     );
   }
@@ -54,7 +57,4 @@ function PlaceDetail(props) {
 const mapStateToProps = ({ places: { error } }) => {
   return { error };
 };
-export default connect(
-  mapStateToProps,
-  { deletePlace }
-)(PlaceDetail);
+export default connect(mapStateToProps, { deletePlace })(PlaceDetail);

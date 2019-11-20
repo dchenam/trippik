@@ -6,7 +6,10 @@ import {
   FETCH_TRIPS_SUCCESS,
   FETCH_TRIPS_FAILURE,
   FETCH_TRIP_SUCCESS,
-  FETCH_TRIP_FAILURE
+  FETCH_TRIP_FAILURE,
+  UPDATE_EVENT,
+  SET_CURRENT_TRIP,
+  ERROR
 } from "./actions";
 
 const initialTripState = {
@@ -25,26 +28,52 @@ export function TripReducer(state = initialTripState, action) {
     case ADD_EVENT:
       const data = {
         ...state.data,
-        events: [...state.data.events, action.payload]
+        events: [...state.data.events, action.payload],
+        error: null
       };
       return { ...state, data };
     case DELETE_EVENT:
-      const { event_id } = action.payload;
       const filtered_events = state.data.events.filter(
-        item => item.event_id !== event_id
+        item => item.event_id !== action.payload.event_id
       );
-      return { ...state, data: { ...state.data, events: filtered_events } };
+      return {
+        ...state,
+        data: { ...state.data, events: filtered_events },
+        error: null
+      };
+    case UPDATE_EVENT:
+      const modified_events = state.data.events.map(item => {
+        if (item.event_id === action.payload.event_id) {
+          item.time = action.payload.time;
+        }
+        return item;
+      });
+      return {
+        ...state,
+        data: { ...state.data, events: modified_events },
+        error: null
+      };
     case REORDER_TRIP:
       return { ...state, events: action.payload };
+    case SET_CURRENT_TRIP:
+      localStorage.setItem("trip_id", action.payload);
+      return { ...state, data: { ...state.data, trip_id: action.payload } };
     case FETCH_TRIP_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        data: action.payload
+        data: action.payload,
+        error: null
       };
     case FETCH_TRIP_FAILURE:
       localStorage.removeItem("trip_id");
       return {
+        isLoading: false,
+        error: action.error
+      };
+    case ERROR:
+      return {
+        ...state,
         isLoading: false,
         error: action.error
       };

@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Route, Redirect, Switch, BrowserRouter } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 import { loadUser } from "./shared/auth/actions";
 
-import "./App.css";
 import TripPage from "./pages/TripPage/TripPage";
 import PlaceDetail from "./pages/PlacePage/PlaceDetail";
 import PlaceList from "./pages/PlacePage/PlaceList";
@@ -12,6 +11,7 @@ import BasicLayout from "./components/Layout/BasicLayout";
 import NormalLoginForm from "./pages/LoginPage/NormalLoginForm";
 import TripList from "./pages/TripPage/TripList";
 import TripNew from "./pages/TripPage/TripNew";
+import "./App.css";
 
 function PrivateRoute({ component: Comp, isAuthenticated, path, ...rest }) {
   return (
@@ -36,9 +36,8 @@ function PrivateRoute({ component: Comp, isAuthenticated, path, ...rest }) {
 }
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    props.loadUser();
+  componentDidMount() {
+    this.props.loadUser();
   }
 
   render() {
@@ -46,7 +45,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <BrowserRouter>
+          <>
             <BasicLayout>
               <Switch>
                 <Route exact path="/" component={TripPage} />
@@ -64,7 +63,7 @@ class App extends Component {
                 <Redirect to="/" />
               </Switch>
             </BasicLayout>
-          </BrowserRouter>
+          </>
         </header>
       </div>
     );

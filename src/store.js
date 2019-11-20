@@ -6,9 +6,11 @@ import createRootReducer from "./reducers";
 import apiMiddleware from "./middleware/api";
 
 export const history = createBrowserHistory();
+
 const enhancers = [];
 const middleware = [apiMiddleware, thunk, routerMiddleware(history)];
 const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);
+
 export default function configureStore(initialState) {
   const store = createStore(
     createRootReducer(history),

@@ -1,8 +1,9 @@
 .place-form-container {
   background: #ffffff;
-  padding-top: 2rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  min-height: 80rem;
 }
 
 .place-list-header {
@@ -15,4 +16,16 @@
   padding: 1rem 15%;
   text-align: center;
   background: #ffffff;
+}
+
+.place-general-info {
+  text-align: center;
+}
+
+.place-location-info {
+  text-align: center;
+}
+
+.place-search-bar {
+  padding: 5rem 15%;
 }
