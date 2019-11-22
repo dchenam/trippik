@@ -1,4 +1,5 @@
 import apiAction from "..";
+import { push } from "connected-react-router";
 
 export const USER_LOADING = "user_loading";
 export const USER_LOADED = "user_loaded";
@@ -6,6 +7,9 @@ export const AUTHENTICATION_ERROR = "authentication_error";
 export const LOGIN_SUCCESS = "login_success";
 export const LOGIN_FAILED = "login_failed";
 export const LOGOUT_SUCCESS = "logout_success";
+
+export const REGISTRATION_SUCCESS = "REGISTRATION_SUCCESS";
+export const REGISTRATION_FAIL = "REGISTRATION_FAIL";
 
 export const loadUser = () =>
   apiAction({
@@ -38,5 +42,20 @@ export const logoutUser = () =>
     method: "POST",
     onSuccess: (_data, dispatch) => {
       dispatch({ type: LOGOUT_SUCCESS, error: null });
+    }
+  });
+
+export const registerUser = values =>
+  apiAction({
+    url: "/api/accounts/registration/",
+    method: "POST",
+    data: values,
+    onSuccess: (data, dispatch) => {
+      dispatch({ type: REGISTRATION_SUCCESS, payload: data });
+      dispatch(push("/"));
+    },
+    onFailure: (error, dispatch) => {
+      console.log(error);
+      dispatch({ type: REGISTRATION_FAIL, error: error });
     }
   });

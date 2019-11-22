@@ -1,6 +1,6 @@
-import { loadUser, loginUser, logoutUser } from "./auth/actions";
+import { loadUser, loginUser, logoutUser, registerUser } from "./auth/actions";
 
-export { loadUser, loginUser, logoutUser };
+export { loadUser, loginUser, logoutUser, registerUser };
 
 export const API = "API";
 

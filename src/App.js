@@ -38,7 +38,9 @@ function PrivateRoute({ component: Comp, isAuthenticated, path, ...rest }) {
 
 class App extends Component {
   componentDidMount() {
-    this.props.loadUser();
+    if (this.props.auth.key) {
+      this.props.loadUser();
+    }
   }
 
   render() {

@@ -28,7 +28,7 @@ class TripPage extends Component {
     return (
       <div className="trip-form-container">
         {error ? <Alert message={error.statusText} type="error" /> : null}
-        <h1>Trip Builder</h1>
+        <h5>Trip Builder</h5>
         <div className="trip-form-options">
           <Button onClick={() => history.push("/places")}>
             <Icon type="plus" />

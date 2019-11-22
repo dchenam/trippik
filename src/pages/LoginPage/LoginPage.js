@@ -42,7 +42,7 @@ class LoginPage extends Component {
 
     return (
       <div className="login-page">
-        <h1>Your Account</h1>
+        <h5>Your Account</h5>
         <Form onSubmit={this.handleSubmit} className="login-form">
           <Form.Item>
             {getFieldDecorator("username", {

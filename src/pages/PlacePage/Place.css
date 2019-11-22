@@ -5,9 +5,11 @@
   justify-content: center;
   min-height: 90vh;
 }
-
-.place-list-header {
+.place-list-container {
   background: #ffffff;
+  min-height: 90vh;
+}
+.place-list-header {
   text-align: center;
   padding: 3rem 15%;
 }
@@ -15,7 +17,6 @@
 .place-list-table {
   padding: 1rem 15%;
   text-align: center;
-  background: #ffffff;
 }
 
 .place-general-info {
@@ -27,6 +28,5 @@
 }
 
 .place-search-bar {
-  background: #ffffff;
   padding: 5rem 15%;
 }

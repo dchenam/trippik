@@ -4,13 +4,15 @@ import {
   AUTHENTICATION_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAILED,
-  LOGOUT_SUCCESS
+  LOGOUT_SUCCESS,
+  REGISTRATION_SUCCESS,
+  REGISTRATION_FAIL
 } from "./actions";
 
 const initialState = {
   key: localStorage.getItem("key"),
   isAuthenticated: false,
-  isLoading: true,
+  isLoading: false,
   user: null,
   errors: {}
 };
@@ -26,7 +28,9 @@ export default (state = initialState, action) => {
         isLoading: false,
         user: action.user
       };
+    case REGISTRATION_SUCCESS:
     case LOGIN_SUCCESS:
+      console.log("registration success")
       localStorage.setItem("key", action.payload.key);
       return {
         ...state,
@@ -35,8 +39,10 @@ export default (state = initialState, action) => {
         isLoading: false,
         errors: null
       };
+
     case AUTHENTICATION_ERROR:
     case LOGIN_FAILED:
+    case REGISTRATION_FAIL:
     case LOGOUT_SUCCESS:
       localStorage.removeItem("key");
       return {
