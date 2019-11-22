@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Table, Pagination, Button } from "antd";
 
 export default function PlaceTable(props) {
@@ -7,7 +6,7 @@ export default function PlaceTable(props) {
     {
       title: "Name",
       key: "name",
-      render: item => <Link to={`/places/${item.place_id}`}>{item.name}</Link>
+      render: item => <div>{item.name}</div>
     },
     {
       title: "Description",
@@ -15,8 +14,9 @@ export default function PlaceTable(props) {
       key: "description"
     },
     {
-      title: "Tag",
-      key: "tag"
+      title: "Price",
+      dataIndex: "price",
+      key: "price"
     },
     {
       title: "Action",

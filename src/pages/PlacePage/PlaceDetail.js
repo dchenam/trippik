@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Row, Col, Button, Divider } from "antd";
-import BusinessInfo from "../../components/Places/BusinessInfo";
+import BusinessInfo from "./components/BusinessInfo";
 import { deletePlace } from "./actions";
 
 function PlaceDetail(props) {
@@ -31,17 +31,15 @@ function PlaceDetail(props) {
   } else if (props.error) {
     return <div>{props.error.message}</div>;
   } else {
-    console.log(data);
     return (
       <div>
         <Row>
           <Col span={16} className="place-general-info">
-            <BusinessInfo place={data.place}/>
+            <BusinessInfo place={data.place} />
           </Col>
           <Col span={8} className="place-location-info">
             <h4>Business Hours</h4>
             <Divider />
-            {/* <p>{data.place}</p> */}
           </Col>
         </Row>
         <Button

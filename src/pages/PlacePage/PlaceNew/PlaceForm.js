@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { Button, Form, Input } from "antd";
-import { createPlace } from "./actions";
+import { createPlace } from "../actions";
 
 const formItemLayout = {
   labelCol: {
@@ -72,13 +72,15 @@ class PlaceForm extends Component {
           })(<Input />)}
         </Form.Item>
         <Form.Item wrapperCol={{ span: 12, offset: 10 }}>
-          <Button type="primary" htmlType="submit" size="large">
+          <Button
+            type="primary"
+            htmlType="submit"
+            size="large"
+            style={{ marginRight: "1rem" }}
+          >
             Submit
           </Button>
-          <Button
-            size="large"
-            onClick={() => this.props.push("/places")}
-          >
+          <Button size="large" onClick={() => this.props.push("/places")}>
             Cancel
           </Button>
         </Form.Item>

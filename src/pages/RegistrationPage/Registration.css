@@ -1,0 +1,16 @@
+.registration-form {
+  max-width: 300px;
+}
+.login-form-register {
+  float: right;
+}
+.signup-form-button {
+  width: 100%;
+}
+.registration-page {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

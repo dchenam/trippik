@@ -2,7 +2,7 @@
   background: #ffffff;
   text-align: center;
   padding: 3rem 15%;
-  min-height: 80rem;
+  min-height: 90vh;
 }
 
 .trip-form-options {
@@ -14,7 +14,7 @@
 .trip-list-container {
   background: #ffffff;
   padding: 0rem 15% 2rem;
-  min-height: 80rem;
+  min-height: 90vh;
 }
 
 .trip-view-container {

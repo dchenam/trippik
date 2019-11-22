@@ -1,4 +1,5 @@
 import apiAction from "../../shared";
+import { push } from "connected-react-router";
 
 export const ADD_EVENT = "ADD_EVENT";
 export const DELETE_EVENT = "DELETE_EVENT";
@@ -7,8 +8,8 @@ export const UPDATE_EVENT = "UPDATE_EVENT";
 export const SET_CURRENT_TRIP = "SET_CURRENT_TRIP";
 export const UPDATE_TRIP = "UPDATE_TRIP";
 export const UPDATE_TRIP_FAILURE = "UPDATE_TRIP_FAILURE";
-export const ERROR = "ERROR";
-export const REORDER_TRIP = "reorder_trip";
+export const DELETE_TRIP = "DELETE_TRIP";
+export const API_ERROR = "API_ERROR";
 export const FETCH_TRIPS_REQUEST = "fetch_trips";
 export const FETCH_TRIPS_SUCCESS = "fetch_trips_success";
 export const FETCH_TRIPS_FAILURE = "fetch_trips_failure";
@@ -16,7 +17,7 @@ export const FETCH_TRIPS_FAILURE = "fetch_trips_failure";
 export const FETCH_TRIP_SUCCESS = "fetch_trip_success";
 export const FETCH_TRIP_FAILURE = "fetch_trip_failure";
 
-export const addEvent = (event, history) => {
+export const addEvent = event => {
   const trip_id = localStorage.getItem("trip_id");
   return apiAction({
     url: `/api/trips/${trip_id}/events/`,
@@ -25,10 +26,10 @@ export const addEvent = (event, history) => {
     accessToken: localStorage.getItem("key"),
     onSuccess: (data, dispatch) => {
       dispatch({ type: ADD_EVENT, payload: data });
-      history.push("/");
+      dispatch(push("/"));
     },
-    onFailure: error => {
-      console.log(error.message);
+    onFailure: (error, dispatch) => {
+      dispatch({ type: API_ERROR, error: error });
     }
   });
 };
@@ -42,8 +43,8 @@ export const deleteEvent = event => {
     onSuccess: (_data, dispatch) => {
       dispatch({ type: DELETE_EVENT, payload: event });
     },
-    onFailure: error => {
-      console.log(error);
+    onFailure: (error, dispatch) => {
+      dispatch({ type: API_ERROR, error: error });
     }
   });
 };
@@ -59,7 +60,7 @@ export const updateEvent = (event, value) => {
       dispatch({ type: UPDATE_EVENT, payload: data });
     },
     onFailure: (error, dispatch) => {
-      dispatch({ type: ERROR, error: error });
+      dispatch({ type: API_ERROR, error: error });
     }
   });
 };
@@ -74,20 +75,29 @@ export const updateTrip = (trip, value) => {
       dispatch({ type: UPDATE_TRIP, payload: data });
     },
     onFailure: (error, dispatch) => {
-      dispatch({ type: ERROR, error: error });
+      dispatch({ type: API_ERROR, error: error });
     }
   });
 };
 
+export const deleteTrip = trip => {
+  return apiAction({
+    url: `/api/trips/${trip.trip_id}`,
+    method: "DELETE",
+    accessToken: localStorage.getItem("key"),
+    onSuccess: (_data, dispatch) => {
+      dispatch({ type: DELETE_TRIP, payload: trip });
+    },
+    onFailure: (error, dispatch) => {
+      dispatch({ type: API_ERROR, error: error });
+    }
+  });
+};
 export const setCurrentTrip = trip => {
   return {
     type: SET_CURRENT_TRIP,
     payload: trip.trip_id
   };
-};
-
-export const reorderTrip = trip => async dispatch => {
-  dispatch({ type: REORDER_TRIP, payload: trip });
 };
 
 export const fetchTrips = () =>

@@ -50,3 +50,18 @@ export const deletePlace = (id, history) =>
       dispatch({ type: DELETE_PLACE_FAILURE, error: error });
     }
   });
+
+export const searchPlace = values =>
+  apiAction({
+    url: "/api/places/search/",
+    data: values,
+    accessToken: localStorage.getItem("key"),
+    onSuccess: (data, dispatch) => {
+      dispatch({ type: FETCH_PLACES_SUCCESS, payload: data });
+      // console.log(data);
+    },
+    onFailure: (error, dispatch) => {
+      dispatch({ type: FETCH_PLACES_FAILURE, error: error });
+      // console.log(error);
+    }
+  });

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { Form, Icon, Input, Button, Spin } from "antd";
 import "./LoginForm.css";
 import { loginUser } from "../../shared/auth/actions";
 
-class NormalLoginForm extends Component {
+class LoginPage extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -84,9 +84,9 @@ class NormalLoginForm extends Component {
             <a className="login-form-forgot" href="/">
               Forgot password
             </a>
-            <a className="login-form-register" href="/">
+            <Link className="login-form-register" to="/account/register">
               Sign Up!
-            </a>
+            </Link>
           </Form.Item>
           {/* {this.renderErrors()} */}
         </Form>
@@ -107,5 +107,5 @@ const mapStateToProps = ({ auth }) => {
 };
 
 export default connect(mapStateToProps, { loginUser })(
-  Form.create({ name: "normal_login" })(NormalLoginForm)
+  Form.create({ name: "normal_login" })(LoginPage)
 );

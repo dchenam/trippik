@@ -3,9 +3,9 @@ import moment from "moment";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Table, Divider, Pagination, TimePicker, Button } from "antd";
+import { Table, Divider, Pagination, TimePicker, Button, Icon } from "antd";
 
-import { deleteEvent, updateEvent } from "./actions";
+import { deleteEvent, updateEvent } from "../actions";
 
 class TripTable extends Component {
   handleChangeTime(event, value) {
@@ -58,12 +58,15 @@ class TripTable extends Component {
         title: "Action",
         render: event => (
           <span>
-            <Link to={`/places/${event.place.place_id}`}>Explore</Link>
+            <Button>
+              <Link to={`/places/${event.place.place_id}`}>Explore</Link>
+            </Button>
             <Divider type="vertical" />
             {editable ? (
-              <Button onClick={() => this.props.deleteEvent(event)}>
-                Delete
-              </Button>
+              <Icon
+                type="close"
+                onClick={() => this.props.deleteEvent(event)}
+              />
             ) : null}
           </span>
         )

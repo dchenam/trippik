@@ -1,7 +1,7 @@
 import {
   ADD_EVENT,
   DELETE_EVENT,
-  REORDER_TRIP,
+  DELETE_TRIP,
   FETCH_TRIPS_REQUEST,
   FETCH_TRIPS_SUCCESS,
   FETCH_TRIPS_FAILURE,
@@ -9,7 +9,7 @@ import {
   FETCH_TRIP_FAILURE,
   UPDATE_EVENT,
   SET_CURRENT_TRIP,
-  ERROR
+  API_ERROR
 } from "./actions";
 
 const initialTripState = {
@@ -53,8 +53,6 @@ export function TripReducer(state = initialTripState, action) {
         data: { ...state.data, events: modified_events },
         error: null
       };
-    case REORDER_TRIP:
-      return { ...state, events: action.payload };
     case SET_CURRENT_TRIP:
       localStorage.setItem("trip_id", action.payload);
       return { ...state, data: { ...state.data, trip_id: action.payload } };
@@ -68,10 +66,11 @@ export function TripReducer(state = initialTripState, action) {
     case FETCH_TRIP_FAILURE:
       localStorage.removeItem("trip_id");
       return {
+        ...state,
         isLoading: false,
         error: action.error
       };
-    case ERROR:
+    case API_ERROR:
       return {
         ...state,
         isLoading: false,
@@ -90,10 +89,19 @@ const initialTripsState = {
 
 export function MyTripListReducer(state = initialTripsState, action) {
   switch (action.type) {
+    case DELETE_TRIP:
+      const filtered_trips = state.trips.results.filter(
+        item => item.trip_id !== action.payload.trip_id
+      );
+      return {
+        ...state,
+        trips: { ...state.trips, results: filtered_trips },
+        error: null
+      };
     case FETCH_TRIPS_REQUEST:
       return { ...state, isLoading: true };
     case FETCH_TRIPS_SUCCESS:
-      return { trips: action.payload, isLoading: false };
+      return { trips: action.payload, isLoading: false, error: null };
     case FETCH_TRIPS_FAILURE:
       return { trips: [], isLoading: false, error: action.error };
     default:

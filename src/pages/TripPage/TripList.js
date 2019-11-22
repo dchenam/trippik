@@ -9,9 +9,10 @@ class TripList extends Component {
     this.props.fetchTrips();
   }
 
-  tabCallback(item) {
-    console.log("tab changed", item);
-  }
+  handleNewTrip = () => {
+    localStorage.removeItem("trip_id");
+    this.props.history.push("/");
+  };
 
   renderTabs() {
     const { trips } = this.props.mytrips;
@@ -25,11 +26,6 @@ class TripList extends Component {
     });
   }
 
-  createNewTrip = () => {
-    localStorage.removeItem("trip_id");
-    this.props.history.push("/");
-  };
-
   render() {
     const { isLoading, error } = this.props.mytrips;
     if (isLoading) {
@@ -41,7 +37,7 @@ class TripList extends Component {
         <Tabs defaultActiveKey="0" onChange={this.tabCallback}>
           {this.renderTabs()}
         </Tabs>
-        <Button onClick={this.createNewTrip}>Create New Trip</Button>
+        <Button onClick={this.handleNewTrip}>Create New Trip</Button>
       </div>
     );
   }

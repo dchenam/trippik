@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Button, Spin, Icon, Divider, Alert } from "antd";
+import { Button, Icon, Divider, Alert } from "antd";
 
-import TripTable from "./TripTable";
+import TripTable from "./components/TripTable";
 import TripEditModal from "./components/TripEditModal";
 
 import { fetchTrip } from "./actions";
 
 import "./TripPage.css";
+import Spinner from "../../components/Spinner";
 
 class TripPage extends Component {
   componentDidMount() {
@@ -21,9 +22,9 @@ class TripPage extends Component {
     } = this.props;
 
     if (isLoading) {
-      return <Spin />;
+      return <Spinner />;
     }
-    
+
     return (
       <div className="trip-form-container">
         {error ? <Alert message={error.statusText} type="error" /> : null}

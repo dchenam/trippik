@@ -1,14 +1,16 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Input, Button, Icon } from "antd";
+import { searchPlace } from "../actions";
 
 class SearchForm extends Component {
   state = {
-    place_search: null,
-    location_search: null
+    term: null,
+    location: null
   };
   handleSubmit = e => {
     e.preventDefault();
-    console.log("received values of form", this.state);
+    this.props.searchPlace(this.state);
   };
   render() {
     return (
@@ -17,14 +19,14 @@ class SearchForm extends Component {
           style={{ width: "50%" }}
           addonBefore="Find"
           placeholder="restaurants"
-          onChange={e => this.setState({ place_search: e.target.value })}
+          onChange={e => this.setState({ term: e.target.value })}
           onPressEnter={this.handleSubmit}
         />
         <Input
           style={{ width: "40%" }}
           addonBefore="Near"
           placeholder="address, neighborhood, city, state, or zip"
-          onChange={e => this.setState({ location_search: e.target.value })}
+          onChange={e => this.setState({ location: e.target.value })}
           onPressEnter={this.handleSubmit}
         />
         <Button size="large" type="primary" onClick={this.handleSubmit}>
@@ -34,4 +36,4 @@ class SearchForm extends Component {
     );
   }
 }
-export default SearchForm;
+export default connect(null, { searchPlace })(SearchForm);

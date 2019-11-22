@@ -1,24 +1,36 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { Menu } from "antd";
-import { connect } from "react-redux";
-import UserPopover from "./UserPopover";
+import { logoutUser } from "../../shared";
 
 class Navbar extends Component {
-  renderContent() {
+  renderLoginContent() {
     switch (this.props.auth.isAuthenticated) {
       case true:
         return (
-          <Menu.Item style={{ float: "right" }}>
-            <UserPopover />
+          <Menu.Item
+            className="menu-right"
+            onClick={() => this.props.logoutUser()}
+          >
+            Logout
           </Menu.Item>
         );
       default:
         return (
-          <Menu.Item key="/account/login" style={{ float: "right" }}>
+          <Menu.Item className="menu-right">
             <Link to="/account/login">Login</Link>
           </Menu.Item>
         );
+    }
+  }
+  renderMyTrips() {
+    if (this.props.auth.isAuthenticated) {
+      return (
+        <Menu.Item key="/trips">
+          <Link to="/trips">My Trips</Link>
+        </Menu.Item>
+      );
     }
   }
 
@@ -28,7 +40,7 @@ class Navbar extends Component {
         theme="dark"
         mode="horizontal"
         selectedKeys={[this.props.location.pathname]}
-        style={{ lineHeight: "64px" }}
+        className="menu"
       >
         <Menu.Item key="/">
           <Link to="/">Trip Builder</Link>
@@ -39,10 +51,8 @@ class Navbar extends Component {
         <Menu.Item key="/places/new">
           <Link to="/places/new">Add a Place</Link>
         </Menu.Item>
-        <Menu.Item key="/trips">
-          <Link to="/trips">My Trips</Link>
-        </Menu.Item>
-        {this.renderContent()}
+        {this.renderMyTrips()}
+        {this.renderLoginContent()}
       </Menu>
     );
   }
@@ -52,4 +62,4 @@ const mapStatetoProps = ({ auth }) => {
   return { auth };
 };
 
-export default connect(mapStatetoProps)(withRouter(Navbar));
+export default connect(mapStatetoProps, { logoutUser })(withRouter(Navbar));

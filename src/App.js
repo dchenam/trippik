@@ -5,13 +5,14 @@ import { loadUser } from "./shared/auth/actions";
 
 import TripPage from "./pages/TripPage/TripPage";
 import PlaceDetail from "./pages/PlacePage/PlaceDetail";
-import PlaceList from "./pages/PlacePage/PlaceList";
-import PlaceNew from "./pages/PlacePage/PlaceNew";
+import PlaceNew from "./pages/PlacePage/PlaceNew/PlaceNew";
 import BasicLayout from "./components/Layout/BasicLayout";
-import NormalLoginForm from "./pages/LoginPage/NormalLoginForm";
 import TripList from "./pages/TripPage/TripList";
-import TripNew from "./pages/TripPage/TripNew";
+
 import "./App.css";
+import SearchPlace from "./pages/PlacePage/SearchPlace";
+import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
 
 function PrivateRoute({ component: Comp, isAuthenticated, path, ...rest }) {
   return (
@@ -54,12 +55,11 @@ class App extends Component {
                   isAuthenticated={isAuthenticated}
                   component={TripList}
                 />
-                <Route exact path="/trips/new" component={TripNew} />
-                <Route exact path="/places" component={PlaceList} />
+                <Route exact path="/places" component={SearchPlace} />
                 <Route exact path="/places/new" component={PlaceNew} />
                 <Route exact path="/places/:id" component={PlaceDetail} />
-                <Route path="/account/login" component={NormalLoginForm} />
-                <Route path="/account/register" component={NormalLoginForm} />
+                <Route path="/account/login" component={LoginPage} />
+                <Route path="/account/register" component={RegistrationPage} />
                 <Redirect to="/" />
               </Switch>
             </BasicLayout>
