@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { DatePicker, Form, Input, Modal } from "antd";
 import React, { Component } from "react";
 

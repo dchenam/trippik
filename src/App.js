@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { loadUser } from "./services/auth";
+import BasicLayout from "./components/Layout/BasicLayout";
 
 import TripPage from "./pages/trip/editor";
 import PlaceProfile from "./pages/place/profile";
 import PlaceForm from "./pages/place/form";
-import BasicLayout from "./components/Layout/BasicLayout";
 import TripList from "./pages/trip/list";
-
 import SearchPlace from "./pages/place/search-table";
 import Registration from "./pages/user/registration";
 import Login from "./pages/user/login";
