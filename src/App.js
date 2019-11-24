@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, Redirect, Switch } from "react-router-dom";
-import { loadUser } from "./shared/auth/actions";
+import { loadUser } from "./services/auth";
 
-import TripPage from "./pages/TripPage/TripPage";
-import PlaceDetail from "./pages/PlacePage/PlaceDetail";
-import PlaceNew from "./pages/PlacePage/PlaceNew/PlaceNew";
+import TripPage from "./pages/trip/editor";
+import PlaceProfile from "./pages/place/profile";
+import PlaceForm from "./pages/place/form";
 import BasicLayout from "./components/Layout/BasicLayout";
-import TripList from "./pages/TripPage/TripList";
+import TripList from "./pages/trip/list";
 
+import SearchPlace from "./pages/place/search-table";
+import Registration from "./pages/user/registration";
+import Login from "./pages/user/login";
 import "./App.css";
-import SearchPlace from "./pages/PlacePage/SearchPlace";
-import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
-import LoginPage from "./pages/LoginPage/LoginPage";
 
 function PrivateRoute({ component: Comp, isAuthenticated, path, ...rest }) {
   return (
@@ -58,10 +58,10 @@ class App extends Component {
                   component={TripList}
                 />
                 <Route exact path="/places" component={SearchPlace} />
-                <Route exact path="/places/new" component={PlaceNew} />
-                <Route exact path="/places/:id" component={PlaceDetail} />
-                <Route path="/account/login" component={LoginPage} />
-                <Route path="/account/register" component={RegistrationPage} />
+                <Route exact path="/places/new" component={PlaceForm} />
+                <Route exact path="/places/:id" component={PlaceProfile} />
+                <Route path="/user/login" component={Login} />
+                <Route path="/user/register" component={Registration} />
                 <Redirect to="/" />
               </Switch>
             </BasicLayout>

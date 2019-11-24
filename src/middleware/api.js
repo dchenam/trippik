@@ -1,9 +1,7 @@
 import axios from "axios";
-import { API } from "../shared";
-import { AUTHENTICATION_ERROR } from "../shared/auth/actions";
+import { API, AUTHENTICATION_ERROR } from "../services/constants";
 
 const apiMiddleware = ({ dispatch, getState }) => next => action => {
-  // console.log("action.type", action.type);
   if (typeof action === "undefined") return;
   next(action);
   if (action.type !== API) return;

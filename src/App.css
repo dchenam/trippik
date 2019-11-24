@@ -54,10 +54,11 @@
 
 .menu {
   line-height: 64px;
+  display: flex;
 }
 
 .menu-right {
-  float: right;
+  margin-left: auto;
 }
 
 .spinner {

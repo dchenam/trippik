@@ -1,6 +1,6 @@
-import React from "react";
 import { Layout } from "antd";
-import Navbar from "../Navbar/Navbar";
+import React from "react";
+import Navbar from "../Navbar";
 
 function BasicHeader() {
   return (
