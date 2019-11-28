@@ -1,0 +1,15 @@
+version: "3"
+services:
+  postgres:
+    env_file:
+      - .env
+    container_name: postgres
+    image: postgres
+    hostname: postgres
+    environment:
+      GET_HOST_FROM: dns
+      POSTGRES_DB: dev
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    ports:
+      - 5432:5432
