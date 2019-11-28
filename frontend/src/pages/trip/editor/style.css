@@ -1,0 +1,16 @@
+.trip-editor-header {
+  background: white;
+  text-align: center;
+  padding: 3vh;
+}
+
+.trip-editor-container {
+  padding: 0rem 15%;
+  min-height: 70vh;
+}
+
+.trip-editor-options {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 1rem 0;
+}

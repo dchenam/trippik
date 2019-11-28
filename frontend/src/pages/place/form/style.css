@@ -1,0 +1,6 @@
+.place-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 90vh;
+  }

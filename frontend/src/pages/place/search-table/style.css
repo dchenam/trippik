@@ -1,0 +1,24 @@
+.place-list-container {
+  min-height: 70vh;
+}
+.place-list-header {
+  text-align: center;
+  background: #ffffff;
+  padding: 3rem 15%;
+}
+
+.place-list-table {
+  padding: 1rem 15%;
+  text-align: center;
+}
+
+.place-general-info {
+  text-align: center;
+}
+
+.place-location-info {
+  text-align: center;
+}
+
+.place-search-bar {
+}
