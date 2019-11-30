@@ -10,16 +10,11 @@ migrations
 __pycache__
 
 # dependencies
-node_modules
 .pnp
 .pnp.js
 
 # testing
 /coverage
-
-# production
-build
-staticfiles
 
 # misc
 .DS_Store

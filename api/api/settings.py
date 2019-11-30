@@ -1,4 +1,5 @@
 import os
+import django_heroku
 import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -155,3 +156,5 @@ AUTHENTICATION_BACKENDS = {
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SITE_ID = 1
+
+django_heroku.settings(locals())
