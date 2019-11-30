@@ -3,9 +3,6 @@
 .vscode
 .idea
 
-# database
-migrations
-
 # python
 __pycache__
 
