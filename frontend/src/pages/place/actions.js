@@ -38,7 +38,7 @@ export const createPlace = values =>
 
 export const deletePlace = (id, history) =>
   request({
-    url: `/api/places/${id}`,
+    url: `/api/places/${id}/`,
     method: "DELETE",
     accessToken: localStorage.getItem("key"),
     onSuccess: (_data, dispatch) => {

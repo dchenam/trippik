@@ -91,7 +91,7 @@ export const fetchTrip = () => {
     });
   }
   return request({
-    url: `/api/trips/${trip_id}`,
+    url: `/api/trips/${trip_id}/`,
     accessToken: accessToken,
     onSuccess: (data, dispatch) => {
       dispatch({ type: FETCH_TRIP_SUCCESS, payload: data });

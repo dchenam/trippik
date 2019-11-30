@@ -3,7 +3,7 @@ import { API_ERROR, DELETE_TRIP, SET_CURRENT_TRIP } from "./constants";
 
 export const deleteTrip = trip => {
   return request({
-    url: `/api/trips/${trip.trip_id}`,
+    url: `/api/trips/${trip.trip_id}/`,
     method: "DELETE",
     accessToken: localStorage.getItem("key"),
     onSuccess: (_data, dispatch, getState) => {

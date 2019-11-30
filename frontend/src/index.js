@@ -7,8 +7,6 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import configureStore, { history } from "./store";
 
-
-
 const store = configureStore({});
 
 ReactDOM.render(

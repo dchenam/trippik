@@ -8,8 +8,6 @@ import TripTable from "../components/TripTable";
 import { fetchTrip, saveTrip } from "./actions";
 import "./style.css";
 
-
-
 class TripPage extends Component {
   componentDidMount() {
     this.props.fetchTrip();

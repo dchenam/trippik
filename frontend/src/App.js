@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
-import "./App.css";
 import BasicLayout from "./components/Layout/BasicLayout";
 import PlaceForm from "./pages/place/form";
 import PlaceProfile from "./pages/place/profile";
@@ -11,7 +10,7 @@ import TripList from "./pages/trip/list";
 import Login from "./pages/user/login";
 import Registration from "./pages/user/registration";
 import { loadUser } from "./services/auth";
-
+import "./App.css";
 
 
 function PrivateRoute({ component: Comp, isAuthenticated, path, ...rest }) {
