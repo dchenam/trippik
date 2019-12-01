@@ -27,6 +27,7 @@ export const loginUser = (username, password, history, location) =>
       const { state = {} } = location;
       const { prevLocation } = state;
       dispatch({ type: LOGIN_SUCCESS, payload: data });
+      dispatch(loadUser());
       history.push(prevLocation || "/");
     },
     onFailure: (error, dispatch) => {
@@ -50,6 +51,7 @@ export const registerUser = values =>
     data: values,
     onSuccess: (data, dispatch) => {
       dispatch({ type: REGISTRATION_SUCCESS, payload: data });
+      dispatch(loadUser());
       dispatch(push("/"));
     },
     onFailure: (error, dispatch) => {

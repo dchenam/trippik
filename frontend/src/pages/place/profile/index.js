@@ -30,7 +30,7 @@ class PlaceProfile extends Component {
             </Card>
           </Col>
         </Row>
-        {auth.user.username === data.owner ? (
+        {auth.user && auth.user.username === data.owner ? (
           <Button onClick={() => deletePlace(data.place_id, history)}>
             Delete
           </Button>

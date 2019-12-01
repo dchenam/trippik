@@ -1,4 +1,4 @@
-import { Alert, Button, Card } from "antd";
+import { Alert, Button, Card, message } from "antd";
 import { push } from "connected-react-router";
 import React, { Component } from "react";
 import { connect } from "react-redux";
@@ -12,11 +12,20 @@ class PlaceList extends Component {
     this.props.fetchPlaces();
   }
 
+  handleNewPlace = () => {
+    const { push } = this.props;
+    const { isAuthenticated } = this.props.auth;
+    if (isAuthenticated) {
+      push("/places/new");
+    } else {
+      message.warn("Please login first!");
+    }
+  };
+
   render() {
     const {
       places: { data, error, isLoading },
-      addEvent,
-      push
+      addEvent
     } = this.props;
 
     if (isLoading) {
@@ -36,7 +45,7 @@ class PlaceList extends Component {
                 addEvent(event);
               }}
             />
-            <Button type="primary" onClick={() => push("/places/new")}>
+            <Button type="primary" onClick={this.handleNewPlace}>
               New Place
             </Button>
           </Card>
@@ -46,7 +55,8 @@ class PlaceList extends Component {
   }
 }
 
-const mapStateToProps = ({ places }) => ({
+const mapStateToProps = ({ auth, places }) => ({
+  auth,
   places
 });
 

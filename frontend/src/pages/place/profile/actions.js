@@ -4,7 +4,7 @@ export const FETCH_PLACE_SUCCESS = "FETCH_PLACE_SUCCESS";
 
 export const fetchPlace = id =>
   request({
-    url: `/api/places/${id}`,
+    url: `/api/places/${id}/`,
     onSuccess: (data, dispatch) => {
       dispatch({ type: FETCH_PLACE_SUCCESS, payload: data });
     },
