@@ -1,10 +1,11 @@
-import { Alert, Button, Card, Col, Row } from "antd";
+import { Alert, Button, Card, Col, Row, Icon } from "antd";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PageLoading from "../../../components/PageLoading";
 import { deletePlace } from "../actions";
 import { fetchPlace } from "./actions";
 import BusinessInfo from "./components/BusinessInfo";
+import "./style.css";
 
 class PlaceProfile extends Component {
   componentDidMount() {
@@ -18,6 +19,7 @@ class PlaceProfile extends Component {
     if (isLoading) {
       return <PageLoading />;
     }
+    console.log(data);
     return (
       <div>
         <Row gutter={20}>
@@ -26,7 +28,8 @@ class PlaceProfile extends Component {
           </Col>
           <Col span={8} className="place-location-info">
             <Card>
-              <h4>Business Hours</h4>
+              <h4>Location</h4>
+              <Icon type="compass" /> {data.location.display_address}
             </Card>
           </Col>
         </Row>

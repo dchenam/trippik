@@ -59,8 +59,8 @@ class TripTable extends Component {
         dataIndex: "place.description"
       },
       {
-        title: "Tag",
-        key: "tag"
+        title: "Address",
+        dataIndex:  "place.location.display_address"
       },
       {
         title: "Action",

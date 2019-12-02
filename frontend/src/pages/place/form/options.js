@@ -4,7 +4,7 @@ const { Option } = Select;
 
 export const countrySelect = () => {
   return (
-    <Select>
+    <Select showSearch placeholder="Select a country">
       <Option value="Afghanistan">Afghanistan</Option>
       <Option value="Åland Islands">Åland Islands</Option>
       <Option value="Albania">Albania</Option>

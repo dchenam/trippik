@@ -1,4 +1,4 @@
-import { Card, Divider } from "antd";
+import { Card, Divider, Empty } from "antd";
 import React from "react";
 
 const BusinessInfo = ({ data }) => {
@@ -7,8 +7,12 @@ const BusinessInfo = ({ data }) => {
     <div>
       <Card>
         <h3>{name}</h3>
-        <Divider />
         <p>{description}</p>
+        <Divider />
+        <h4>Pictures</h4>
+        <Card>
+          <Empty />
+        </Card>
       </Card>
     </div>
   );

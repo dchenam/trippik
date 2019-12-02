@@ -14,7 +14,7 @@ const initialState = {
   isAuthenticated: false,
   isLoading: false,
   user: null,
-  errors: {}
+  error: null
 };
 
 export default (state = initialState, action) => {
@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
         ...action.payload,
         isAuthenticated: true,
         isLoading: false,
-        errors: null
+        error: null
       };
 
     case AUTHENTICATION_ERROR:
@@ -47,7 +47,7 @@ export default (state = initialState, action) => {
       localStorage.removeItem("trip-token");
       return {
         ...state,
-        errors: action.error,
+        error: action.error,
         key: null,
         user: null,
         isAuthenticated: false,

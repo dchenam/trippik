@@ -40,14 +40,14 @@ class PlaceForm extends Component {
         <Form.Item label="Place Name">
           {getFieldDecorator("name", {
             rules: [{ required: true, message: "please input a name" }]
-          })(<Input placeholder="Name" />)}
+          })(<Input placeholder="Amazing Cafe" />)}
         </Form.Item>
         <Form.Item label="Description">
           {getFieldDecorator("description", {
             rules: [{ required: true, message: "please input a description" }]
           })(
             <Input.TextArea
-              placeholder="Description"
+              placeholder="Something something"
               autoSize={{ minRows: 3, maxRows: 8 }}
             />
           )}
@@ -57,15 +57,15 @@ class PlaceForm extends Component {
             rules: [
               { required: true, message: "please input a street addresss" }
             ]
-          })(<Input />)}
+          })(<Input placeholder="123 Street"/>)}
         </Form.Item>
         <Form.Item label="City">
           {getFieldDecorator("city", {
             rules: [{ required: true, message: "please input a city" }]
-          })(<Input />)}
+          })(<Input placeholder="San Francisco"/>)}
         </Form.Item>
         <Form.Item label="State">
-          {getFieldDecorator("state")(<Input />)}
+          {getFieldDecorator("state")(<Input placeholder="CA"/>)}
         </Form.Item>
         <Form.Item label="ZIP">
           {getFieldDecorator("zip", {

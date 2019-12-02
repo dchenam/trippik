@@ -17,9 +17,9 @@ export default function PlaceTable(props) {
       key: "description"
     },
     {
-      title: "Price",
-      dataIndex: "price",
-      key: "price"
+      title: "Address",
+      dataIndex: "location.display_address",
+      key: "address"
     },
     {
       title: "Action",
@@ -35,7 +35,7 @@ export default function PlaceTable(props) {
     <Table
       columns={columns}
       dataSource={props.data}
-      pagination={<Pagination total="4"></Pagination>}
+      pagination={<Pagination total="10"></Pagination>}
       rowKey="place_id"
     />
   );

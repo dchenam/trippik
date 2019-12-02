@@ -1,4 +1,4 @@
-import { Alert, Button, Form, Icon, Input, Spin } from "antd";
+import { Button, Form, Icon, Input, Spin } from "antd";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
@@ -85,13 +85,7 @@ class Login extends Component {
     );
   }
   render() {
-    const { error } = this.props.auth;
-    return (
-      <div>
-        {error ? <Alert message={error.statusText} type="error" /> : null}
-        {this.renderContent()}
-      </div>
-    );
+    return <div>{this.renderContent()}</div>;
   }
 }
 

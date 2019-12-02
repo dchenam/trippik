@@ -8,6 +8,7 @@ import {
 } from "./constants";
 import { push } from "connected-react-router";
 import request from "../utils/request";
+import { message } from "antd";
 
 export const loadUser = () =>
   request({
@@ -31,7 +32,8 @@ export const loginUser = (username, password, history, location) =>
       history.push(prevLocation || "/");
     },
     onFailure: (error, dispatch) => {
-      dispatch({ type: LOGIN_FAILED, error: error });
+      Object.values(error.data).map(error => message.error(error, 5));
+      dispatch({ type: LOGIN_FAILED });
     }
   });
 
@@ -55,7 +57,7 @@ export const registerUser = values =>
       dispatch(push("/"));
     },
     onFailure: (error, dispatch) => {
-      console.log(error);
-      dispatch({ type: REGISTRATION_FAIL, error: error });
+      Object.values(error.data).map(error => message.error(error, 5));
+      dispatch({ type: REGISTRATION_FAIL });
     }
   });
