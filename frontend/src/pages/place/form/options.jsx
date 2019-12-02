@@ -57,9 +57,6 @@ export const countrySelect = () => {
       <Option value="Colombia">Colombia</Option>
       <Option value="Comoros">Comoros</Option>
       <Option value="Congo">Congo</Option>
-      <Option value="Congo, The Democratic Republic of The">
-        Congo, The Democratic Republic of The
-      </Option>
       <Option value="Cook Islands">Cook Islands</Option>
       <Option value="Costa Rica">Costa Rica</Option>
       <Option value="Cote D'ivoire">Cote D'ivoire</Option>
@@ -110,18 +107,14 @@ export const countrySelect = () => {
       <Option value="Heard Island and Mcdonald Islands">
         Heard Island and Mcdonald Islands
       </Option>
-      <Option value="Holy See (Vatican City State)">
-        Holy See (Vatican City State)
-      </Option>
+
       <Option value="Honduras">Honduras</Option>
       <Option value="Hong Kong">Hong Kong</Option>
       <Option value="Hungary">Hungary</Option>
       <Option value="Iceland">Iceland</Option>
       <Option value="India">India</Option>
       <Option value="Indonesia">Indonesia</Option>
-      <Option value="Iran, Islamic Republic of">
-        Iran, Islamic Republic of
-      </Option>
+      <Option value="Iran">Iran</Option>
       <Option value="Iraq">Iraq</Option>
       <Option value="Ireland">Ireland</Option>
       <Option value="Isle of Man">Isle of Man</Option>
@@ -134,15 +127,10 @@ export const countrySelect = () => {
       <Option value="Kazakhstan">Kazakhstan</Option>
       <Option value="Kenya">Kenya</Option>
       <Option value="Kiribati">Kiribati</Option>
-      <Option value="Korea, Democratic People's Republic of">
-        Korea, Democratic People's Republic of
-      </Option>
-      <Option value="Korea, Republic of">Korea, Republic of</Option>
+      <Option value="South Korea">South Korea</Option>
       <Option value="Kuwait">Kuwait</Option>
       <Option value="Kyrgyzstan">Kyrgyzstan</Option>
-      <Option value="Lao People's Democratic Republic">
-        Lao People's Democratic Republic
-      </Option>
+      <Option value="Laos">Laos</Option>
       <Option value="Latvia">Latvia</Option>
       <Option value="Lebanon">Lebanon</Option>
       <Option value="Lesotho">Lesotho</Option>
@@ -152,9 +140,7 @@ export const countrySelect = () => {
       <Option value="Lithuania">Lithuania</Option>
       <Option value="Luxembourg">Luxembourg</Option>
       <Option value="Macao">Macao</Option>
-      <Option value="Macedonia, The Former Yugoslav Republic of">
-        Macedonia, The Former Yugoslav Republic of
-      </Option>
+      <Option value="Macedonia">Macedonia</Option>
       <Option value="Madagascar">Madagascar</Option>
       <Option value="Malawi">Malawi</Option>
       <Option value="Malaysia">Malaysia</Option>
@@ -167,10 +153,8 @@ export const countrySelect = () => {
       <Option value="Mauritius">Mauritius</Option>
       <Option value="Mayotte">Mayotte</Option>
       <Option value="Mexico">Mexico</Option>
-      <Option value="Micronesia, Federated States of">
-        Micronesia, Federated States of
-      </Option>
-      <Option value="Moldova, Republic of">Moldova, Republic of</Option>
+      <Option value="Micronesia">Micronesia</Option>
+      <Option value="Moldova">Moldova</Option>
       <Option value="Monaco">Monaco</Option>
       <Option value="Mongolia">Mongolia</Option>
       <Option value="Montenegro">Montenegro</Option>
@@ -247,13 +231,9 @@ export const countrySelect = () => {
       <Option value="Sweden">Sweden</Option>
       <Option value="Switzerland">Switzerland</Option>
       <Option value="Syrian Arab Republic">Syrian Arab Republic</Option>
-      <Option value="Taiwan, Province of China">
-        Taiwan, Province of China
-      </Option>
+      <Option value="Taiwan">Taiwan</Option>
       <Option value="Tajikistan">Tajikistan</Option>
-      <Option value="Tanzania, United Republic of">
-        Tanzania, United Republic of
-      </Option>
+      <Option value="Tanzania">Tanzania</Option>
       <Option value="Thailand">Thailand</Option>
       <Option value="Timor-leste">Timor-leste</Option>
       <Option value="Togo">Togo</Option>

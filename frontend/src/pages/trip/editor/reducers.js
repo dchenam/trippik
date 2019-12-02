@@ -20,7 +20,7 @@ const initialTripState = {
   error: null
 };
 
-export default function TripReducer(state = initialTripState, action) {
+export default function tripEditorReducer(state = initialTripState, action) {
   switch (action.type) {
     case ADD_EVENT:
       const data = {

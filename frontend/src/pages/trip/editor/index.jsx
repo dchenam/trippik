@@ -2,20 +2,23 @@ import { Alert, Button, Card, Descriptions, Icon, message } from "antd";
 import moment from "moment";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import PageLoading from "../../../components/PageLoading";
+import { fetchTrip } from "../actions";
 import TripEditModal from "../components/TripEditModal";
 import TripTable from "../components/TripTable";
-import { fetchTrip, saveTrip } from "./actions";
+import { saveTrip } from "./actions";
 import "./style.css";
 
-class TripPage extends Component {
+class TripEditor extends Component {
   componentDidMount() {
-    this.props.fetchTrip();
+    const trip_id = localStorage.getItem("trip-token");
+    this.props.fetchTrip(trip_id);
   }
 
   handleNewTrip = () => {
     localStorage.removeItem("trip-token");
-    this.props.fetchTrip();
+    this.props.fetchTrip(null);
   };
 
   handleSaveTrip = data => {
@@ -30,13 +33,14 @@ class TripPage extends Component {
   renderContent() {
     const { trip, history } = this.props;
     const { isLoading, data } = trip;
-    const { name, summary, date, owner } = data;
+    const { trip_id, name, summary, date, owner } = data;
+    const link = `${window.location.host}/trips/${trip_id}`;
     if (isLoading) {
       return <PageLoading />;
     }
     return (
       <>
-        <Card style={{ marginBottom: 24 }} bordered={false}>
+        <Card bordered={false}>
           <Button.Group className="trip-editor-options">
             <Button onClick={this.handleNewTrip}>Start New</Button>
             <TripEditModal data={data} />
@@ -60,6 +64,12 @@ class TripPage extends Component {
               {date ? moment(date).format("MMM DD, YYYY") : null}
             </Descriptions.Item>
           </Descriptions>
+        </Card>
+        <Card bordered={false} style={{ marginBottom: 24 }}>
+          <h4>
+            <Icon type="link" style={{ marginRight: 10 }} />
+            <Link to={`/trips/${trip_id}`}>{link}</Link>
+          </h4>
         </Card>
         <Card bordered={false}>
           <TripTable data={data} editable={true} />
@@ -93,9 +103,9 @@ class TripPage extends Component {
   }
 }
 
-const mapStateToProps = ({ trip, auth }) => ({
-  trip,
+const mapStateToProps = ({ editTrip, auth }) => ({
+  trip: editTrip,
   auth
 });
 
-export default connect(mapStateToProps, { fetchTrip, saveTrip })(TripPage);
+export default connect(mapStateToProps, { fetchTrip, saveTrip })(TripEditor);

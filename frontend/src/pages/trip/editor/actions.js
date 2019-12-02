@@ -4,9 +4,6 @@ import {
   ADD_EVENT,
   API_ERROR,
   DELETE_EVENT,
-  FETCH_TRIP_FAILURE,
-  FETCH_TRIP_SUCCESS,
-  SET_CURRENT_TRIP,
   UPDATE_EVENT,
   UPDATE_TRIP
 } from "../constants";
@@ -74,33 +71,6 @@ export const updateTrip = (trip, value) => {
   });
 };
 
-export const fetchTrip = () => {
-  const trip_id = localStorage.getItem("trip-token");
-  const accessToken = localStorage.getItem("key");
-  if (trip_id === null) {
-    return request({
-      url: "/api/trips/",
-      method: "POST",
-      data: {},
-      accessToken: accessToken,
-      onSuccess: ({ trip_id }, dispatch) => {
-        localStorage.setItem("trip-token", trip_id);
-        dispatch({ type: SET_CURRENT_TRIP, payload: trip_id });
-        dispatch(fetchTrip());
-      }
-    });
-  }
-  return request({
-    url: `/api/trips/${trip_id}/`,
-    accessToken: accessToken,
-    onSuccess: (data, dispatch) => {
-      dispatch({ type: FETCH_TRIP_SUCCESS, payload: data });
-    },
-    onFailure: (error, dispatch) => {
-      dispatch({ type: FETCH_TRIP_FAILURE, error: error });
-    }
-  });
-};
 
 export const saveTrip = trip =>
   request({

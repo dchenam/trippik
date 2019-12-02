@@ -1,4 +1,5 @@
 import axios from "axios";
+import { push } from "connected-react-router";
 import { API, AUTHENTICATION_ERROR } from "../services/constants";
 
 const apiMiddleware = ({ dispatch, getState }) => next => action => {
@@ -40,8 +41,10 @@ const apiMiddleware = ({ dispatch, getState }) => next => action => {
     .catch(error => {
       onFailure(error.response, dispatch, getState);
       if (error.response && error.response.status === 401) {
-        console.log("access denied");
         dispatch({ type: AUTHENTICATION_ERROR, error: error.response });
+      }
+      if (error.response && error.response.status === 404) {
+        dispatch(push("/404"));
       }
     });
 };

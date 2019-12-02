@@ -1,4 +1,4 @@
-import { Alert, Button, Card, Col, Row, Icon } from "antd";
+import { Alert, Button, Card, Col, Icon, Row } from "antd";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PageLoading from "../../../components/PageLoading";
@@ -19,27 +19,28 @@ class PlaceProfile extends Component {
     if (isLoading) {
       return <PageLoading />;
     }
-    console.log(data);
-    return (
-      <div>
-        <Row gutter={20}>
-          <Col span={16} className="place-general-info">
-            <BusinessInfo data={data} />
-          </Col>
-          <Col span={8} className="place-location-info">
-            <Card>
-              <h4>Location</h4>
-              <Icon type="compass" /> {data.location.display_address}
-            </Card>
-          </Col>
-        </Row>
-        {auth.user && auth.user.username === data.owner ? (
-          <Button onClick={() => deletePlace(data.place_id, history)}>
-            Delete
-          </Button>
-        ) : null}
-      </div>
-    );
+    if (data) {
+      return (
+        <div>
+          <Row gutter={20}>
+            <Col span={16} className="place-general-info">
+              <BusinessInfo data={data} />
+            </Col>
+            <Col span={8} className="place-location-info">
+              <Card>
+                <h4>Location</h4>
+                <Icon type="compass" /> {data.location.display_address}
+              </Card>
+            </Col>
+          </Row>
+          {auth.user && auth.user.username === data.owner ? (
+            <Button onClick={() => deletePlace(data.place_id, history)}>
+              Delete
+            </Button>
+          ) : null}
+        </div>
+      );
+    }
   }
 
   render() {

@@ -1,8 +1,10 @@
-import { Alert, Button, Card, Result, Skeleton, Tabs } from "antd";
+import { Alert, Button, Card, Icon, Result, Skeleton, Tabs } from "antd";
+import { push } from "connected-react-router";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { deleteTrip, setCurrentTrip } from "../actions";
+import TripView from "../components/TripView";
 import { fetchTrips } from "./actions";
-import TripView from "./components/TripView";
 import "./style.css";
 
 class TripList extends Component {
@@ -15,12 +17,30 @@ class TripList extends Component {
     this.props.history.push("/");
   };
 
+  handleEdit = trip => {
+    this.props.setCurrentTrip(trip);
+    this.props.push("/");
+  };
+
+  handleDelete = trip => {
+    this.props.deleteTrip(trip);
+  };
+
   renderTabs() {
-    const { trips } = this.props.mytrips;
+    const { trips } = this.props.trips;
     return trips.results.map((trip, index) => {
       const tabText = trip.name === "" ? `Trip ${index + 1}` : trip.name;
       return (
         <Tabs.TabPane tab={tabText} key={index}>
+          <div className="trip-list-options">
+            <Button.Group>
+              <Button onClick={() => this.handleEdit(trip)}>
+                <Icon type="edit" />
+                Edit
+              </Button>
+              <Button onClick={() => this.handleDelete(trip)}>Delete</Button>
+            </Button.Group>
+          </div>
           <TripView data={trip} />
         </Tabs.TabPane>
       );
@@ -28,11 +48,11 @@ class TripList extends Component {
   }
 
   renderContent() {
-    const { isLoading, trips } = this.props.mytrips;
+    const { isLoading, trips } = this.props.trips;
     if (isLoading) {
       return <Skeleton />;
     }
-    if (trips.results.length === 0) {
+    if (!trips.results || trips.results.length === 0) {
       return (
         <Result
           title="You have no trips"
@@ -58,7 +78,7 @@ class TripList extends Component {
   }
 
   render() {
-    const { error } = this.props.mytrips;
+    const { error } = this.props.trips;
     return (
       <>
         <h5 className="trip-list-header">My Trips</h5>
@@ -71,8 +91,13 @@ class TripList extends Component {
   }
 }
 
-const mapStateToProps = ({ mytrips }) => ({
-  mytrips
+const mapStateToProps = ({ userTrips }) => ({
+  trips: userTrips
 });
 
-export default connect(mapStateToProps, { fetchTrips })(TripList);
+export default connect(mapStateToProps, {
+  fetchTrips,
+  deleteTrip,
+  setCurrentTrip,
+  push
+})(TripList);

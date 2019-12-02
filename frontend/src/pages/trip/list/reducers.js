@@ -12,7 +12,7 @@ const initialState = {
   error: null
 };
 
-export default function TripListReducer(state = initialState, action) {
+export default function tripListReducer(state = initialState, action) {
   switch (action.type) {
     case DELETE_TRIP:
       const filtered_trips = state.trips.results.filter(

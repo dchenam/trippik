@@ -11,10 +11,6 @@
   padding: 3vh;
 }
 
-.trip-view-container {
-  padding: 2rem 0;
-}
-
 .trip-list-options {
   display: flex;
   flex-direction: row-reverse;

@@ -5,13 +5,14 @@ import BasicLayout from "./components/Layout/BasicLayout";
 import PlaceForm from "./pages/place/form";
 import PlaceProfile from "./pages/place/profile";
 import SearchPlace from "./pages/place/search-table";
-import TripPage from "./pages/trip/editor";
+import TripEditor from "./pages/trip/editor";
 import TripList from "./pages/trip/list";
+import TripItinerary from "./pages/trip/itinerary";
 import Login from "./pages/user/login";
 import Registration from "./pages/user/registration";
+import NoFoundPage from "./pages/404";
 import { loadUser } from "./services/auth";
 import "./App.css";
-
 
 function PrivateRoute({ component: Comp, isAuthenticated, path, ...rest }) {
   return (
@@ -24,7 +25,7 @@ function PrivateRoute({ component: Comp, isAuthenticated, path, ...rest }) {
         ) : (
           <Redirect
             to={{
-              pathname: "/account/login",
+              pathname: "/user/login",
               state: { prevLocation: path },
               error: "You need to login first!"
             }}
@@ -50,18 +51,21 @@ class App extends Component {
           <>
             <BasicLayout>
               <Switch>
-                <Route exact path="/" component={TripPage} />
+                <Route exact path="/" component={TripEditor} />
                 <PrivateRoute
+                  exact
                   path="/trips"
                   isAuthenticated={isAuthenticated}
                   component={TripList}
                 />
+                <Route exact path="/trips/:id" component={TripItinerary} />
                 <Route exact path="/places" component={SearchPlace} />
                 <Route exact path="/places/new" component={PlaceForm} />
                 <Route exact path="/places/:id" component={PlaceProfile} />
                 <Route path="/user/login" component={Login} />
                 <Route path="/user/register" component={Registration} />
-                <Redirect to="/" />
+                <Route path="/404" component={NoFoundPage} />
+                <Redirect to="/404" />
               </Switch>
             </BasicLayout>
           </>
