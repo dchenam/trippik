@@ -60,22 +60,22 @@ class TripTable extends Component {
       },
       {
         title: "Address",
-        dataIndex:  "place.location.display_address"
+        dataIndex: "place.location.display_address"
       },
       {
         title: "Action",
         render: event => (
           <span>
-            <Button>
-              <Link to={`/places/${event.place.place_id}`}>Explore</Link>
-            </Button>
-            <Divider type="vertical" />
             {editable ? (
               <Icon
                 type="close"
                 onClick={() => this.props.deleteEvent(event)}
               />
-            ) : null}
+            ) : (
+              <Button>
+                <Link to={`/places/${event.place.place_id}`}>Explore</Link>
+              </Button>
+            )}
           </span>
         )
       }
