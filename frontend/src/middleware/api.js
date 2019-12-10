@@ -19,6 +19,7 @@ const apiMiddleware = ({ dispatch, getState }) => next => action => {
 
   axios
     .request({
+      baseURL: process.env.REACT_APP_ADDRESS,
       url,
       method,
       headers,
