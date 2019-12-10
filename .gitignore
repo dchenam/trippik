@@ -21,9 +21,8 @@ staticfiles
 # misc
 .DS_Store
 .env.local
-.env.dev.local
 .env.test.local
-.env.prod.local
+.env.production.local
 
 npm-debug.log*
 yarn-debug.log*

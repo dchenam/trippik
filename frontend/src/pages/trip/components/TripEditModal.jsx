@@ -12,7 +12,7 @@ class TripEditModal extends Component {
   };
 
   handleCreate = values => {
-    const newValues = { ...values, date: values.data.format('YYYY-MM-DD') };
+    const newValues = { ...values, date: values.date.format('YYYY-MM-DD') };
     this.props.updateTrip(this.props.data, newValues);
     this.handleModalVisible();
   };
