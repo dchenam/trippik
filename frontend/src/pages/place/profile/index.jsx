@@ -1,11 +1,11 @@
-import { Alert, Button, Card, Col, Icon, Row } from "antd";
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import PageLoading from "../../../components/PageLoading";
-import { deletePlace } from "../actions";
-import { fetchPlace } from "./actions";
-import BusinessInfo from "./components/BusinessInfo";
-import "./style.css";
+import { Alert, Button, Card, Col, Icon, Row } from 'antd';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PageLoading from '../../../components/PageLoading';
+import { deletePlace } from '../actions';
+import { fetchPlace } from './actions';
+import BusinessInfo from './components/BusinessInfo';
+import './style.css';
 
 class PlaceProfile extends Component {
   componentDidMount() {
@@ -14,7 +14,7 @@ class PlaceProfile extends Component {
   }
 
   renderContent() {
-    const { auth, place, deletePlace, history } = this.props;
+    const { auth, place, history } = this.props;
     const { data, isLoading } = place;
     if (isLoading) {
       return <PageLoading />;
@@ -29,18 +29,17 @@ class PlaceProfile extends Component {
             <Col span={8} className="place-location-info">
               <Card>
                 <h4>Location</h4>
-                <Icon type="compass" /> {data.location.display_address}
+                <Icon type="compass" /> {data.location.displayAddress}
               </Card>
             </Col>
           </Row>
           {auth.user && auth.user.username === data.owner ? (
-            <Button onClick={() => deletePlace(data.place_id, history)}>
-              Delete
-            </Button>
+            <Button onClick={() => this.props.deletePlace(data.placeId, history)}>Delete</Button>
           ) : null}
         </div>
       );
     }
+    return null;
   }
 
   render() {
@@ -54,10 +53,6 @@ class PlaceProfile extends Component {
   }
 }
 
-const mapStateToProps = ({ auth, place }) => {
-  return { auth, place };
-};
+const mapStateToProps = ({ auth, place }) => ({ auth, place });
 
-export default connect(mapStateToProps, { deletePlace, fetchPlace })(
-  PlaceProfile
-);
+export default connect(mapStateToProps, { deletePlace, fetchPlace })(PlaceProfile);

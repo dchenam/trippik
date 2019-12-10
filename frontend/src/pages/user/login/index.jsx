@@ -1,9 +1,9 @@
-import { Button, Form, Icon, Input, Spin } from "antd";
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
-import { loginUser } from "../../../services/auth";
-import "./style.css";
+import { Button, Form, Icon, Input, Spin } from 'antd';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+import { loginUser } from '../../../services/auth';
+import './style.css';
 
 class Login extends Component {
   handleSubmit = e => {
@@ -27,7 +27,7 @@ class Login extends Component {
     if (auth.isAuthenticated) {
       const { state = {} } = location;
       const { prevLocation } = state;
-      return <Redirect to={prevLocation || "/"} />;
+      return <Redirect to={prevLocation || '/'} />;
     }
 
     const { getFieldDecorator } = this.props.form;
@@ -37,40 +37,28 @@ class Login extends Component {
         <h5>Your Account</h5>
         <Form onSubmit={this.handleSubmit} className="login-form">
           <Form.Item>
-            {getFieldDecorator("username", {
-              rules: [
-                { required: true, message: "Please input your username!" }
-              ]
+            {getFieldDecorator('username', {
+              rules: [{ required: true, message: 'Please input your username!' }],
             })(
               <Input
-                prefix={
-                  <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
+                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                 placeholder="username: guest"
-              />
+              />,
             )}
           </Form.Item>
           <Form.Item>
-            {getFieldDecorator("password", {
-              rules: [
-                { required: true, message: "Please input your Password!" }
-              ]
+            {getFieldDecorator('password', {
+              rules: [{ required: true, message: 'Please input your Password!' }],
             })(
               <Input
-                prefix={
-                  <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
+                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                 type="password"
                 placeholder="password: guest.password"
-              />
+              />,
             )}
           </Form.Item>
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-            >
+            <Button type="primary" htmlType="submit" className="login-form-button">
               Log in
             </Button>
             <a className="login-form-forgot" href="/">
@@ -84,15 +72,14 @@ class Login extends Component {
       </div>
     );
   }
+
   render() {
     return <div>{this.renderContent()}</div>;
   }
 }
 
-const mapStateToProps = ({ auth }) => {
-  return { auth };
-};
+const mapStateToProps = ({ auth }) => ({ auth });
 
 export default connect(mapStateToProps, { loginUser })(
-  Form.create({ name: "normal_login" })(Login)
+  Form.create({ name: 'normal_login' })(Login),
 );

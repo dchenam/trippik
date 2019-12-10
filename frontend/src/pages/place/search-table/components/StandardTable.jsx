@@ -1,11 +1,11 @@
-import { Alert, Button, Card, message } from "antd";
-import { push } from "connected-react-router";
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import PageLoading from "../../../../components/PageLoading";
-import { addEvent } from "../../../trip/editor/actions";
-import { fetchPlaces } from "../../actions";
-import PlaceTable from "./PlaceTable";
+import { Alert, Button, Card, message } from 'antd';
+import { push } from 'connected-react-router';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PageLoading from '../../../../components/PageLoading';
+import { addEvent } from '../../../trip/editor/actions';
+import { fetchPlaces } from '../../actions';
+import PlaceTable from './PlaceTable';
 
 class PlaceList extends Component {
   componentDidMount() {
@@ -13,19 +13,17 @@ class PlaceList extends Component {
   }
 
   handleNewPlace = () => {
-    const { push } = this.props;
     const { isAuthenticated } = this.props.auth;
     if (isAuthenticated) {
-      push("/places/new");
+      this.props.push('/places/new');
     } else {
-      message.warn("Please login first!");
+      message.warn('Please login first!');
     }
   };
 
   render() {
     const {
       places: { data, error, isLoading },
-      addEvent
     } = this.props;
 
     if (isLoading) {
@@ -41,8 +39,8 @@ class PlaceList extends Component {
               data={data.results}
               className="place-table"
               onAddEvent={item => {
-                const event = { place: item.place_id, time: null };
-                addEvent(event);
+                const event = { place: item.placeId, time: null };
+                this.props.addEvent(event);
               }}
             />
             <Button type="primary" onClick={this.handleNewPlace}>
@@ -57,9 +55,7 @@ class PlaceList extends Component {
 
 const mapStateToProps = ({ auth, places }) => ({
   auth,
-  places
+  places,
 });
 
-export default connect(mapStateToProps, { fetchPlaces, addEvent, push })(
-  PlaceList
-);
+export default connect(mapStateToProps, { fetchPlaces, addEvent, push })(PlaceList);

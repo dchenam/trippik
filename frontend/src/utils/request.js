@@ -1,14 +1,14 @@
-import { API } from "../services/constants";
+import { API } from '../services/constants';
 
 export default function request({
-  url = "",
-  method = "GET",
+  url = '',
+  method = 'GET',
   data = null,
   accessToken = null,
   onSuccess = () => {},
   onFailure = () => {},
-  label = "",
-  headers = null
+  label = '',
+  headers = null,
 }) {
   return {
     type: API,
@@ -20,7 +20,7 @@ export default function request({
       onSuccess,
       onFailure,
       label,
-      headers
-    }
+      headers,
+    },
   };
 }

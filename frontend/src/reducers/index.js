@@ -1,11 +1,11 @@
-import { combineReducers } from "redux";
-import { connectRouter } from "connected-react-router";
-import placesReducer from "../pages/place/reducers";
-import tripEditorReducer from "../pages/trip/editor/reducers";
-import tripListReducer from "../pages/trip/list/reducers";
-import tripItineraryReducer from "../pages/trip/itinerary/reducers";
-import authReducer from "./auth";
-import placeReducer from "../pages/place/profile/reducers";
+import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
+import placesReducer from '../pages/place/reducers';
+import tripEditorReducer from '../pages/trip/editor/reducers';
+import tripListReducer from '../pages/trip/list/reducers';
+import tripItineraryReducer from '../pages/trip/itinerary/reducers';
+import authReducer from './auth';
+import placeReducer from '../pages/place/profile/reducers';
 
 const createRootReducer = history =>
   combineReducers({
@@ -15,7 +15,7 @@ const createRootReducer = history =>
     place: placeReducer,
     userTrips: tripListReducer,
     editTrip: tripEditorReducer,
-    trip: tripItineraryReducer
+    trip: tripItineraryReducer,
   });
 
 export default createRootReducer;

@@ -1,5 +1,5 @@
-import { Card, Divider, Empty } from "antd";
-import React from "react";
+import { Card, Divider, Empty } from 'antd';
+import React from 'react';
 
 const BusinessInfo = ({ data }) => {
   const { name, description } = data;

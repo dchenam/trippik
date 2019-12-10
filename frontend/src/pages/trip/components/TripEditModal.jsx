@@ -1,48 +1,34 @@
-import { Button, Icon } from "antd";
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { updateTrip } from "../editor/actions";
-import TripEditForm from "./TripEditForm";
+import { Button, Icon } from 'antd';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { updateTrip } from '../editor/actions';
+import TripEditForm from './TripEditForm';
 
 class TripEditModal extends Component {
   state = { visible: false };
-  showModal = () => {
-    this.setState({ visible: true });
+
+  handleModalVisible = flag => {
+    this.setState({ visible: !!flag });
   };
 
-  handleCancel = e => {
-    this.setState({ visible: false });
+  handleCreate = values => {
+    const newValues = { ...values, date: values.data.format('YYYY-MM-DD') };
+    this.props.updateTrip(this.props.data, newValues);
+    this.handleModalVisible();
   };
 
-  handleCreate = () => {
-    const { form } = this.formRef.props;
-    form.validateFields((err, values) => {
-      if (err) {
-        return;
-      }
-      values.date = values.date.format("YYYY-MM-DD");
-      this.props.updateTrip(this.props.data, values);
-      form.resetFields();
-      this.setState({ visible: false });
-    });
-  };
-
-  saveFormRef = formRef => {
-    this.formRef = formRef;
-  };
   render() {
+    const createMethods = {
+      handleCreate: this.handleCreate,
+      handleModalVisible: this.handleModalVisible,
+    };
     return (
       <>
-        <Button onClick={this.showModal}>
+        <Button onClick={() => this.handleModalVisible(true)}>
           <Icon type="edit" theme="outlined" />
           Edit Trip
         </Button>
-        <TripEditForm
-          wrappedComponentRef={this.saveFormRef}
-          visible={this.state.visible}
-          onCancel={this.handleCancel}
-          onCreate={this.handleCreate}
-        />
+        <TripEditForm {...createMethods} visible={this.state.visible} />
       </>
     );
   }

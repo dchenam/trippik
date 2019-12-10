@@ -1,16 +1,14 @@
-import { Menu } from "antd";
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
-import { logoutUser } from "../../services/auth";
+import { Menu } from 'antd';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import { logoutUser } from '../../services/auth';
 
 class Navbar extends Component {
   renderLoginContent() {
     switch (this.props.auth.isAuthenticated) {
       case true:
-        return (
-          <Menu.Item onClick={() => this.props.logoutUser()}>Logout</Menu.Item>
-        );
+        return <Menu.Item onClick={() => this.props.logoutUser()}>Logout</Menu.Item>;
       default:
         return (
           <Menu.Item>
@@ -19,6 +17,7 @@ class Navbar extends Component {
         );
     }
   }
+
   renderMyTrips() {
     if (this.props.auth.isAuthenticated) {
       return (
@@ -27,6 +26,7 @@ class Navbar extends Component {
         </Menu.Item>
       );
     }
+    return null;
   }
 
   renderAddPlace() {
@@ -37,6 +37,7 @@ class Navbar extends Component {
         </Menu.Item>
       );
     }
+    return null;
   }
 
   render() {
@@ -62,8 +63,6 @@ class Navbar extends Component {
   }
 }
 
-const mapStatetoProps = ({ auth }) => {
-  return { auth };
-};
+const mapStatetoProps = ({ auth }) => ({ auth });
 
 export default connect(mapStatetoProps, { logoutUser })(withRouter(Navbar));

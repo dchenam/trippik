@@ -1,23 +1,23 @@
-import { Alert, Button, Card, Descriptions, Icon, message } from "antd";
-import moment from "moment";
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import PageLoading from "../../../components/PageLoading";
-import { fetchTrip } from "../actions";
-import TripEditModal from "../components/TripEditModal";
-import TripTable from "../components/TripTable";
-import { saveTrip } from "./actions";
-import "./style.css";
+import { Alert, Button, Card, Descriptions, Icon, message } from 'antd';
+import moment from 'moment';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import PageLoading from '../../../components/PageLoading';
+import { fetchTrip } from '../actions';
+import TripEditModal from '../components/TripEditModal';
+import TripTable from '../components/TripTable';
+import { saveTrip } from './actions';
+import './style.css';
 
 class TripEditor extends Component {
   componentDidMount() {
-    const trip_id = localStorage.getItem("trip-token");
-    this.props.fetchTrip(trip_id);
+    const tripId = localStorage.getItem('trip-token');
+    this.props.fetchTrip(tripId);
   }
 
   handleNewTrip = () => {
-    localStorage.removeItem("trip-token");
+    localStorage.removeItem('trip-token');
     this.props.fetchTrip(null);
   };
 
@@ -26,15 +26,15 @@ class TripEditor extends Component {
     if (isAuthenticated) {
       this.props.saveTrip(data);
     } else {
-      message.warn("Please login first!");
+      message.warn('Please login first!');
     }
   };
 
   renderContent() {
     const { trip, history } = this.props;
     const { isLoading, data } = trip;
-    const { trip_id, name, summary, date, owner } = data;
-    const link = `${window.location.host}/trips/${trip_id}`;
+    const { tripId, name, summary, date, owner } = data;
+    const link = `${window.location.host}/trips/${tripId}`;
     if (isLoading) {
       return <PageLoading />;
     }
@@ -48,11 +48,7 @@ class TripEditor extends Component {
               <Button onClick={() => this.handleSaveTrip(data)}>Save</Button>
             ) : (
               <Button>
-                <Icon
-                  type="check-circle"
-                  theme="twoTone"
-                  twoToneColor="#52c41a"
-                />
+                <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" />
                 Saved
               </Button>
             )}
@@ -61,23 +57,19 @@ class TripEditor extends Component {
             <Descriptions.Item label="Name">{name}</Descriptions.Item>
             <Descriptions.Item label="Summary">{summary}</Descriptions.Item>
             <Descriptions.Item label="Date">
-              {date ? moment(date).format("MMM DD, YYYY") : null}
+              {date ? moment(date).format('MMM DD, YYYY') : null}
             </Descriptions.Item>
           </Descriptions>
         </Card>
         <Card bordered={false} style={{ marginBottom: 24 }}>
           <h4>
             <Icon type="link" style={{ marginRight: 10 }} />
-            <Link to={`/trips/${trip_id}`}>{link}</Link>
+            <Link to={`/trips/${tripId}`}>{link}</Link>
           </h4>
         </Card>
         <Card bordered={false}>
-          <TripTable data={data} editable={true} />
-          <Button
-            type="primary"
-            style={{ marginTop: 24 }}
-            onClick={() => history.push("/places")}
-          >
+          <TripTable data={data} editable />
+          <Button type="primary" style={{ marginTop: 24 }} onClick={() => history.push('/places')}>
             <Icon type="plus" />
             Add a Place
           </Button>
@@ -88,7 +80,7 @@ class TripEditor extends Component {
 
   render() {
     const {
-      trip: { error }
+      trip: { error },
     } = this.props;
 
     return (
@@ -105,7 +97,7 @@ class TripEditor extends Component {
 
 const mapStateToProps = ({ editTrip, auth }) => ({
   trip: editTrip,
-  auth
+  auth,
 });
 
 export default connect(mapStateToProps, { fetchTrip, saveTrip })(TripEditor);

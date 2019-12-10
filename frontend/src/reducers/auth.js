@@ -6,15 +6,15 @@ import {
   LOGIN_FAILED,
   LOGOUT_SUCCESS,
   REGISTRATION_SUCCESS,
-  REGISTRATION_FAIL
-} from "../services/constants";
+  REGISTRATION_FAIL,
+} from '../services/constants';
 
 const initialState = {
-  key: localStorage.getItem("key"),
+  key: localStorage.getItem('key'),
   isAuthenticated: false,
   isLoading: false,
   user: null,
-  error: null
+  error: null,
 };
 
 export default (state = initialState, action) => {
@@ -26,32 +26,32 @@ export default (state = initialState, action) => {
         ...state,
         isAuthenticated: true,
         isLoading: false,
-        user: action.user
+        user: action.user,
       };
     case REGISTRATION_SUCCESS:
     case LOGIN_SUCCESS:
-      localStorage.setItem("key", action.payload.key);
+      localStorage.setItem('key', action.payload.key);
       return {
         ...state,
         ...action.payload,
         isAuthenticated: true,
         isLoading: false,
-        error: null
+        error: null,
       };
 
     case AUTHENTICATION_ERROR:
     case LOGIN_FAILED:
     case REGISTRATION_FAIL:
     case LOGOUT_SUCCESS:
-      localStorage.removeItem("key");
-      localStorage.removeItem("trip-token");
+      localStorage.removeItem('key');
+      localStorage.removeItem('trip-token');
       return {
         ...state,
         error: action.error,
         key: null,
         user: null,
         isAuthenticated: false,
-        isLoading: false
+        isLoading: false,
       };
     default:
       return state;

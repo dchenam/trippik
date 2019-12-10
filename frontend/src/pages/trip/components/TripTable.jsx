@@ -1,41 +1,41 @@
-import { Button, Divider, Icon, Table, TimePicker } from "antd";
-import moment from "moment";
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { deleteEvent, updateEvent } from "../editor/actions";
+import { Button, Icon, Table, TimePicker } from 'antd';
+import moment from 'moment';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { deleteEvent, updateEvent } from '../editor/actions';
 
 class TripTable extends Component {
   handleChangeTime(event, value) {
-    const time = value ? value.format("HH:mm[:ss]") : null;
-    this.props.updateEvent(event, { time: time });
-  }
-
-  convertToMoment(events) {
-    return events.map(event => {
-      if (event.time) {
-        if (event.time.isValid) {
-          return event;
-        }
-        event.time = moment(`2019-01-01 ${event.time}`);
-      } else {
-        event.time = null;
-      }
-      return event;
-    });
+    const time = value ? value.format('HH:mm[:ss]') : null;
+    this.props.updateEvent(event, { time });
   }
 
   renderTable() {
-    const format = "h:mm A";
+    const convertToMoment = events =>
+      events.map(event => {
+        const newEvent = Object.assign({}, event);
+        if (event.time) {
+          if (event.time.isValid) {
+            return newEvent;
+          }
+          newEvent.time = moment(`2019-01-01 ${event.time}`);
+        } else {
+          newEvent.time = null;
+        }
+        return newEvent;
+      });
+    const format = 'h:mm A';
     const { editable } = this.props;
-    const events = this.convertToMoment(this.props.data.events);
+    const events = convertToMoment(this.props.data.events);
 
     const columns = [
       {
-        title: "Time",
-        key: "time",
+        title: 'Time',
+        key: 'time',
         sorter: (a, b) => a.time - b.time,
-        sortDirections: ["descend", "ascend"],
+        sortDirections: ['descend', 'ascend'],
+        // eslint-disable-next-line no-confusing-arrow
         render: event =>
           editable ? (
             <TimePicker
@@ -45,40 +45,35 @@ class TripTable extends Component {
               use12Hours
             />
           ) : (
-            <p>{event.time ? event.time.format("h:mm A") : null}</p>
-          )
+            <p>{event.time ? event.time.format('h:mm A') : null}</p>
+          ),
       },
       {
-        title: "Name",
-        render: ({ place }) => (
-          <Link to={`/places/${place.place_id}`}>{place.name}</Link>
-        )
+        title: 'Name',
+        render: ({ place }) => <Link to={`/places/${place.placeId}`}>{place.name}</Link>,
       },
       {
-        title: "Description",
-        dataIndex: "place.description"
+        title: 'Description',
+        dataIndex: 'place.description',
       },
       {
-        title: "Address",
-        dataIndex: "place.location.display_address"
+        title: 'Address',
+        dataIndex: 'place.location.displayAddress',
       },
       {
-        title: "Action",
+        title: 'Action',
         render: event => (
           <span>
             {editable ? (
-              <Icon
-                type="close"
-                onClick={() => this.props.deleteEvent(event)}
-              />
+              <Icon type="close" onClick={() => this.props.deleteEvent(event)} />
             ) : (
               <Button>
-                <Link to={`/places/${event.place.place_id}`}>Explore</Link>
+                <Link to={`/places/${event.place.placeId}`}>Explore</Link>
               </Button>
             )}
           </span>
-        )
-      }
+        ),
+      },
     ];
 
     return (
@@ -86,7 +81,7 @@ class TripTable extends Component {
         columns={columns}
         dataSource={events}
         pagination={false}
-        rowKey={event => event.event_id}
+        rowKey={event => event.eventId}
       ></Table>
     );
   }

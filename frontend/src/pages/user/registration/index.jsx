@@ -1,12 +1,12 @@
-import { Button, Form, Icon, Input } from "antd";
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { registerUser } from "../../../services/auth";
-import "./style.css";
+import { Button, Form, Icon, Input } from 'antd';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { registerUser } from '../../../services/auth';
+import './style.css';
 
 class Registration extends Component {
   state = {
-    confirmDirty: false
+    confirmDirty: false,
   };
 
   handleSubmit = e => {
@@ -20,8 +20,8 @@ class Registration extends Component {
 
   compareToFirstPassword = (rule, value, callback) => {
     const { form } = this.props;
-    if (value && value !== form.getFieldValue("password1")) {
-      callback("Two passwords that you enter is inconsistent!");
+    if (value && value !== form.getFieldValue('password1')) {
+      callback('Two passwords that you enter is inconsistent!');
     } else {
       callback();
     }
@@ -31,14 +31,14 @@ class Registration extends Component {
     if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
       callback();
     } else {
-      callback("You entered an invalid email!");
+      callback('You entered an invalid email!');
     }
   };
 
   validateToNextPassword = (rule, value, callback) => {
     const { form } = this.props;
     if (value && this.state.confirmDirty) {
-      form.validateFields(["confirm"], { force: true });
+      form.validateFields(['confirm'], { force: true });
     }
     callback();
   };
@@ -50,73 +50,59 @@ class Registration extends Component {
         <h5>Create an Account</h5>
         <Form onSubmit={this.handleSubmit}>
           <Form.Item>
-            {getFieldDecorator("username", {
-              rules: [
-                { required: true, message: "Please input your username!" }
-              ]
+            {getFieldDecorator('username', {
+              rules: [{ required: true, message: 'Please input your username!' }],
             })(
               <Input
-                prefix={
-                  <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
+                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                 placeholder="Username"
-              />
+              />,
             )}
           </Form.Item>
           <Form.Item>
-            {getFieldDecorator("email", {
+            {getFieldDecorator('email', {
               rules: [
-                { required: true, message: "Please input your email!" },
-                { validator: this.validateEmail }
-              ]
+                { required: true, message: 'Please input your email!' },
+                { validator: this.validateEmail },
+              ],
             })(
               <Input
-                prefix={
-                  <Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
+                prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
                 placeholder="Email"
-              />
+              />,
             )}
           </Form.Item>
           <Form.Item hasFeedback>
-            {getFieldDecorator("password1", {
+            {getFieldDecorator('password1', {
               rules: [
-                { required: true, message: "Please input your Password!" },
+                { required: true, message: 'Please input your Password!' },
                 { validator: this.validateToNextPassword },
-                { min: 8, message: "password must be at least 8 characters" }
-              ]
+                { min: 8, message: 'password must be at least 8 characters' },
+              ],
             })(
               <Input
-                prefix={
-                  <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
+                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                 type="password"
                 placeholder="Password"
-              />
+              />,
             )}
           </Form.Item>
           <Form.Item hasFeedback>
-            {getFieldDecorator("password2", {
+            {getFieldDecorator('password2', {
               rules: [
-                { required: true, message: "Please confirm your Password!" },
-                { validator: this.compareToFirstPassword }
-              ]
+                { required: true, message: 'Please confirm your Password!' },
+                { validator: this.compareToFirstPassword },
+              ],
             })(
               <Input
-                prefix={
-                  <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
+                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                 type="password"
                 placeholder="Confirm Password"
-              />
+              />,
             )}
           </Form.Item>
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="signup-form-button"
-            >
+            <Button type="primary" htmlType="submit" className="signup-form-button">
               Sign Up
             </Button>
           </Form.Item>
@@ -127,5 +113,5 @@ class Registration extends Component {
 }
 
 export default connect(null, { registerUser })(
-  Form.create({ name: "user-registration" })(Registration)
+  Form.create({ name: 'user-registration' })(Registration),
 );

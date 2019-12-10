@@ -1,10 +1,10 @@
-import { API_ERROR } from "../../../services/constants";
-import { FETCH_PLACE_SUCCESS } from "./actions";
+import { API_ERROR } from '../../../services/constants';
+import { FETCH_PLACE_SUCCESS } from './actions';
 
 const initialState = {
   data: null,
   isLoading: true,
-  error: null
+  error: null,
 };
 
 export default function placeReducer(state = initialState, action) {

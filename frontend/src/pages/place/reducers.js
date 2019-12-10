@@ -6,13 +6,13 @@ import {
   CREATE_PLACE_SUCCESS,
   DELETE_PLACE_SUCCESS,
   CREATE_PLACE_FAILURE,
-  DELETE_PLACE_FAILURE
-} from "./constants";
+  DELETE_PLACE_FAILURE,
+} from './constants';
 
 const initialState = {
   data: { results: [] },
   error: null,
-  isLoading: true
+  isLoading: true,
 };
 
 export default function placesReducer(state = initialState, action) {
@@ -29,24 +29,21 @@ export default function placesReducer(state = initialState, action) {
       return {
         data: {
           ...state.data,
-          results: [...state.data.results, action.payload]
+          results: [...state.data.results, action.payload],
         },
         error: null,
-        isLoading: false
+        isLoading: false,
       };
     case CREATE_PLACE_FAILURE:
       return { ...state, error: action.error, isLoading: false };
     case DELETE_PLACE_SUCCESS:
-      const filtered_data = state.data.results.filter(
-        item => item.place_id !== Number(action.payload)
-      );
       return {
         data: {
           ...state.data,
-          results: filtered_data
+          results: state.data.results.filter(item => item.placeId !== Number(action.payload)),
         },
         error: null,
-        isLoading: false
+        isLoading: false,
       };
     case DELETE_PLACE_FAILURE:
       return { ...state, error: action.error, isLoading: false };

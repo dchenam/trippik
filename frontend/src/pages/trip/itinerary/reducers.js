@@ -1,9 +1,9 @@
-import { FETCH_TRIP_SUCCESS, API_ERROR } from "../constants";
+import { FETCH_TRIP_SUCCESS, API_ERROR } from '../constants';
 
 const initialState = {
   data: null,
   isLoading: true,
-  error: null
+  error: null,
 };
 
 export default function tripItineraryReducer(state = initialState, action) {

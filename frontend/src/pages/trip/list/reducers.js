@@ -3,25 +3,25 @@ import {
   FETCH_TRIPS_SUCCESS,
   FETCH_TRIPS_FAILURE,
   DELETE_TRIP,
-  SET_CURRENT_TRIP
-} from "../constants";
+  SET_CURRENT_TRIP,
+} from '../constants';
 
 const initialState = {
   trips: [],
   isLoading: true,
-  error: null
+  error: null,
 };
 
 export default function tripListReducer(state = initialState, action) {
   switch (action.type) {
     case DELETE_TRIP:
-      const filtered_trips = state.trips.results.filter(
-        item => item.trip_id !== action.payload.trip_id
-      );
       return {
         ...state,
-        trips: { ...state.trips, results: filtered_trips },
-        error: null
+        trips: {
+          ...state.trips,
+          results: state.trips.results.filter(item => item.tripId !== action.payload.tripId),
+        },
+        error: null,
       };
     case SET_CURRENT_TRIP:
       return { ...state, currentTrip: action.payload };

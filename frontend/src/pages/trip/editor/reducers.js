@@ -6,55 +6,61 @@ import {
   FETCH_TRIP_SUCCESS,
   SET_CURRENT_TRIP,
   UPDATE_EVENT,
-  UPDATE_TRIP
-} from "../constants";
+  UPDATE_TRIP,
+} from '../constants';
 
 const initialTripState = {
   data: {
-    trip_id: localStorage.getItem("trip-token"),
+    tripId: localStorage.getItem('trip-token'),
     owner: null,
     events: [],
-    summary: null
+    summary: null,
   },
   isLoading: true,
-  error: null
+  error: null,
 };
 
 export default function tripEditorReducer(state = initialTripState, action) {
   switch (action.type) {
     case ADD_EVENT:
-      const data = {
-        ...state.data,
-        events: [...state.data.events, action.payload],
-        error: null
-      };
-      return { ...state, data };
-    case DELETE_EVENT:
-      const filtered_events = state.data.events.filter(
-        item => item.event_id !== action.payload.event_id
-      );
       return {
         ...state,
-        data: { ...state.data, events: filtered_events },
-        error: null
+        data: {
+          ...state.data,
+          events: [...state.data.events, action.payload],
+          error: null,
+        },
+      };
+    case DELETE_EVENT:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          events: state.data.events.filter(item => item.eventId !== action.payload.eventId),
+        },
+        error: null,
       };
     case UPDATE_EVENT:
-      const modified_events = state.data.events.map(item => {
-        if (item.event_id === action.payload.event_id) {
-          item.time = action.payload.time;
-        }
-        return item;
-      });
       return {
         ...state,
-        data: { ...state.data, events: modified_events },
-        error: null
+        data: {
+          ...state.data,
+          events: state.data.events.map(item => {
+            if (item.eventId === action.payload.eventId) {
+              const newItem = Object.assign({}, item);
+              newItem.time = action.payload.time;
+              return newItem;
+            }
+            return item;
+          }),
+        },
+        error: null,
       };
     case SET_CURRENT_TRIP:
       return {
         ...state,
-        data: { ...state.data, trip_id: action.payload },
-        error: null
+        data: { ...state.data, tripId: action.payload },
+        error: null,
       };
     case UPDATE_TRIP:
       return { ...state, data: action.payload, error: null };
@@ -63,20 +69,20 @@ export default function tripEditorReducer(state = initialTripState, action) {
         ...state,
         isLoading: false,
         data: action.payload,
-        error: null
+        error: null,
       };
     case FETCH_TRIP_FAILURE:
-      localStorage.removeItem("trip-token");
+      localStorage.removeItem('trip-token');
       return {
         ...state,
         isLoading: false,
-        error: action.error
+        error: action.error,
       };
     case API_ERROR:
       return {
         ...state,
         isLoading: false,
-        error: action.error
+        error: action.error,
       };
     default:
       return state;

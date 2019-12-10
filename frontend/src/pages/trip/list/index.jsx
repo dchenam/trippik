@@ -1,11 +1,11 @@
-import { Alert, Button, Card, Icon, Result, Skeleton, Tabs } from "antd";
-import { push } from "connected-react-router";
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { deleteTrip, setCurrentTrip } from "../actions";
-import TripView from "../components/TripView";
-import { fetchTrips } from "./actions";
-import "./style.css";
+import { Alert, Button, Card, Icon, Result, Skeleton, Tabs } from 'antd';
+import { push } from 'connected-react-router';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { deleteTrip, setCurrentTrip } from '../actions';
+import TripView from '../components/TripView';
+import { fetchTrips } from './actions';
+import './style.css';
 
 class TripList extends Component {
   componentDidMount() {
@@ -13,13 +13,13 @@ class TripList extends Component {
   }
 
   handleNewTrip = () => {
-    localStorage.removeItem("trip-token");
-    this.props.history.push("/");
+    localStorage.removeItem('trip-token');
+    this.props.history.push('/');
   };
 
   handleEdit = trip => {
     this.props.setCurrentTrip(trip);
-    this.props.push("/");
+    this.props.push('/');
   };
 
   handleDelete = trip => {
@@ -29,9 +29,9 @@ class TripList extends Component {
   renderTabs() {
     const { trips } = this.props.trips;
     return trips.results.map((trip, index) => {
-      const tabText = trip.name === "" ? `Trip ${index + 1}` : trip.name;
+      const tabText = trip.name === '' ? `Trip ${index + 1}` : trip.name;
       return (
-        <Tabs.TabPane tab={tabText} key={index}>
+        <Tabs.TabPane tab={tabText} key={trip.tripId}>
           <div className="trip-list-options">
             <Button.Group>
               <Button onClick={() => this.handleEdit(trip)}>
@@ -66,11 +66,7 @@ class TripList extends Component {
     }
     return (
       <Card bordered={false}>
-        <Tabs
-          defaultActiveKey="0"
-          onChange={this.tabCallback}
-          tabPosition="left"
-        >
+        <Tabs defaultActiveKey="0" onChange={this.tabCallback} tabPosition="left">
           {this.renderTabs()}
         </Tabs>
       </Card>
@@ -92,12 +88,12 @@ class TripList extends Component {
 }
 
 const mapStateToProps = ({ userTrips }) => ({
-  trips: userTrips
+  trips: userTrips,
 });
 
 export default connect(mapStateToProps, {
   fetchTrips,
   deleteTrip,
   setCurrentTrip,
-  push
+  push,
 })(TripList);

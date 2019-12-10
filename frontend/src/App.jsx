@@ -1,33 +1,34 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Redirect, Route, Switch } from "react-router-dom";
-import BasicLayout from "./components/Layout/BasicLayout";
-import PlaceForm from "./pages/place/form";
-import PlaceProfile from "./pages/place/profile";
-import SearchPlace from "./pages/place/search-table";
-import TripEditor from "./pages/trip/editor";
-import TripList from "./pages/trip/list";
-import TripItinerary from "./pages/trip/itinerary";
-import Login from "./pages/user/login";
-import Registration from "./pages/user/registration";
-import NoFoundPage from "./pages/404";
-import { loadUser } from "./services/auth";
-import "./App.css";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import BasicLayout from './components/Layout/BasicLayout';
+import PlaceForm from './pages/place/form';
+import PlaceProfile from './pages/place/profile';
+import SearchPlace from './pages/place/search-table';
+import TripEditor from './pages/trip/editor';
+import TripList from './pages/trip/list';
+import TripItinerary from './pages/trip/itinerary';
+import Login from './pages/user/login';
+import Registration from './pages/user/registration';
+import NoFoundPage from './pages/404';
+import { loadUser } from './services/auth';
+import './App.css';
 
 function PrivateRoute({ component: Comp, isAuthenticated, path, ...rest }) {
   return (
     <Route
       path={path}
       {...rest}
+      // eslint-disable-next-line no-confusing-arrow
       render={props =>
         isAuthenticated ? (
           <Comp {...props} />
         ) : (
           <Redirect
             to={{
-              pathname: "/user/login",
+              pathname: '/user/login',
               state: { prevLocation: path },
-              error: "You need to login first!"
+              error: 'You need to login first!',
             }}
           />
         )
@@ -74,8 +75,6 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = ({ auth }) => {
-  return { auth };
-};
+const mapStateToProps = ({ auth }) => ({ auth });
 
 export default connect(mapStateToProps, { loadUser })(App);

@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import PageLoading from "../../../components/PageLoading";
-import { fetchTrip } from "../actions";
-import TripView from "../components/TripView";
-import "./style.css";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PageLoading from '../../../components/PageLoading';
+import { fetchTrip } from '../actions';
+import TripView from '../components/TripView';
+import './style.css';
 
 class TripItinerary extends Component {
   componentDidMount() {
@@ -18,10 +18,9 @@ class TripItinerary extends Component {
     }
     return <TripView data={data} />;
   }
+
   render() {
-    return (
-      <div className="trip-itinerary-container">{this.renderContent()}</div>
-    );
+    return <div className="trip-itinerary-container">{this.renderContent()}</div>;
   }
 }
 
