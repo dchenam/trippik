@@ -7,7 +7,7 @@ It's built using Django and Django Rest Framework, while the frontend is done in
 While Trippik is configured to be deployed on Heroku, the entire application 
 is dockerized such that you deploy it on any platform.
 
-[Demo Site](https://trippik.herokuapp.com)
+[Demo Site](https://trippik.io)
 
 ### Features
  - Place creation, deletion, and viewing.
